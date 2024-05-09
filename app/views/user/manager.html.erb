@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            <%= check_box_tag :select_all, nil, false, id: 'select-all-checkbox' %>
+          </th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Account Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.each do |user| %>
+          <tr>
+            <td>
+              <%= check_box_tag 'selected_user_ids[]', user.id, false, class: 'user-checkbox' %>
+            </td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.admin ? 'Admin' : 'User' %></td>
+            <td><%= user.status ? 'Active' : 'Blocked' %></td>
+            <td>
+              <%= button_to 'Block', block_user_path(user), method: :put, class: 'btn btn-danger' if user.status %>
+              <%= button_to 'Unblock', unblock_user_path(user), method: :put, class: 'btn btn-success' unless user.status %>
+              <%= button_to 'Add Admin', add_admin_user_path(user), method: :put, class: 'btn btn-primary' unless user.admin %>
+              <%= button_to 'Remove Admin', remove_admin_user_path(user), method: :put, class: 'btn btn-warning' if user.admin %>
+              <%= button_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
