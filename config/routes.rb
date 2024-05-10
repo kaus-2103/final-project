@@ -1,19 +1,24 @@
 Rails.application.routes.draw do
-  get 'user/manager'
+  get 'item/new'
   get 'user/manager'
   devise_for :users, controllers: {
-        sessions: 'users/sessions'
-      }
+    sessions: 'users/sessions'
+  }
   root 'home#index'
-  resources :users do
+  resources :item, only: [:new, :create]
+
+  resources :users, only: [:manager] do
     member do
       put 'block_multiple', to: 'user#block_multiple'
       put 'block', to: 'user#block'
       put 'unblock', to: 'user#unblock'
       put 'add_admin', to: 'user#add_admin'
       put 'remove_admin', to: 'user#remove_admin'
+      delete 'delete', to: 'user#destroy'
     end
+    
   end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

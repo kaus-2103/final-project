@@ -1,6 +1,10 @@
 class UserController < ApplicationController
   def manager
-    @user = User.all
+    if current_user.admin?
+      @user = User.all
+    else 
+      redirect_to root_path, alert: "You are not authorized to access this page."
+    end
   end
 
   def block_multiple
@@ -45,8 +49,12 @@ class UserController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to user_manager_path, notice: 'User deleted successfully.'
+    @user = User.find(params[:id])
+    if @user.destroy
+      redirect_to user_manager_path, notice: 'User deleted successfully.'
+    else
+      redirect_to user_manager_path, alert: 'Failed to delete user.'
+    end
   end
 
   private
