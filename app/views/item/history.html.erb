@@ -1,0 +1,27 @@
+<style>
+  /* CSS for hover effect */
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+    transform: translateY(-5px); /* Move the card slightly up */
+  }
+</style>
+
+<div class="container">
+  <h1><%= @user.name %>'s Items</h1>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @items.each do |item| %>
+      <div class="col">
+        <a href="<%= item_path(item) %>" class="text-decoration-none">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= item.name %></h5>
+              <p class="card-text">Category: <%= item.category %></p>
+              <p class="card-text"><%= item.description %></p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>

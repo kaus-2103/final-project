@@ -1,0 +1,31 @@
+<div class="container">
+  <h1><%= @item.name %></h1>
+  <p>Category: <%= @item.category %></p>
+  <p>Description: <%= @item.description %></p>
+  <% if @item.image.present? %>
+    <img src="<%= @item.image %>" alt="<%= @item.name %> Image">
+  <% else %>
+    <p>No image available</p>
+  <% end %>
+</div>
+
+<%= form_with(model: [@item, Comment.new]) do |form| %>
+    <div class="mb-3">
+      <%= form.label :content, class: "form-label" %>
+      <%= form.text_area :content, class: "form-control", rows: 3 %>
+    </div>
+    <%= form.submit "Post Comment", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+
+<% @item.comments.each do |comment| %>
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text"><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+      </div>
+    </div>
+  </div>
+<% end %>
+

@@ -13,6 +13,15 @@ class ItemController < ApplicationController
     end
   end
 
+  def history
+    @user = current_user
+    @items = current_user.items
+  end
+
+  def show 
+    @item = Item.find(params[:id])
+  end
+
   private
 
   def item_params

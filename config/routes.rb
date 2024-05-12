@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
   get 'item/new'
+  get 'item/history'
+  get '/item/:id', to: 'item#show', as: 'item'
   get 'user/manager'
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
   root 'home#index'
   resources :item, only: [:new, :create]
+
+  resources :items do
+    resources :comments, only: [:create]
+  end
 
   resources :users, only: [:manager] do
     member do
