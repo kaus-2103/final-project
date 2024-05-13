@@ -24,8 +24,27 @@
     <div class="card">
       <div class="card-body">
         <p class="card-text"><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+        
+        <!-- Display Replies -->
+        <% comment.replies.each do |reply| %>
+          <div class="container mt-2">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text"><strong><%= reply.user.name %> (Reply):</strong> <%= reply.content %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Reply Form -->
+        <%= form_with(model: [@item, comment.replies.build]) do |form| %>
+          <div class="mb-3">
+            <%= form.label :content, class: "form-label" %>
+            <%= form.text_area :content, class: "form-control", rows: 3 %>
+          </div>
+          <%= form.submit "Post Reply", class: "btn btn-primary btn-sm" %>
+        <% end %>
       </div>
     </div>
   </div>
 <% end %>
-

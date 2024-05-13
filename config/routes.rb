@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'item/history'
   get '/item/:id', to: 'item#show', as: 'item'
   get 'user/manager'
+  get 'items_by_category/:category', to: 'home#items_by_category', as: 'items_by_category_home'
+  get 'items/category/:category', to: 'item#category', as: 'items_by_category'
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }

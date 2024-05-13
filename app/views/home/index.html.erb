@@ -3,6 +3,22 @@
   <%= link_to "Sign out", destroy_user_session_path, method: :delete, data: { turbo: false } %>
 <% else %>
   <h1>Home</h1>
-  <%= link_to 'Sign in', new_user_session_path %>
-  <%= link_to 'Sign up', new_user_session_path %>
 <% end %>
+
+<div class="container">
+  <% @categories.each_slice(3) do |category_slice| %>
+    <div class="row">
+      <% category_slice.each do |category| %>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= category %></h5>
+              <p class="card-text">Items in <%= category %></p>
+              <%= link_to "View Items", items_by_category_path(category), class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

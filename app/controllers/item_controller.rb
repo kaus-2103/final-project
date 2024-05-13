@@ -22,6 +22,11 @@ class ItemController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def category
+    @category = params[:category]
+    @items = Item.where(category: @category)
+  end
+
   private
 
   def item_params
