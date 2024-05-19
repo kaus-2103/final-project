@@ -12,11 +12,20 @@
             Dropdown
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><%= link_to "History", item_history_path , class: "dropdown-item" %></li>
+            <li><%= link_to t("history"), item_history_path , class: "dropdown-item" %></li>
             <li><%= link_to "Another action", "#" , class: "dropdown-item" %></li>
+            <% if I18n.locale == :ru %>
+              <%= link_to url_for(locale: :en), class: "btn btn-outline-dark" do %>
+                English
+              <% end %>
+            <% else %>
+              <%= link_to url_for(locale: :ru), class: "btn btn-outline-dark" do %>
+                Русский
+              <% end %>
+            <% end %>
             <% if user_signed_in? && current_user.admin? %>
               <li><hr class="dropdown-divider"></li>
-              <li><%= link_to "User Manager", user_manager_path , class: "dropdown-item" %></li>
+              <li><%= link_to t("user_manager"), user_manager_path , class: "dropdown-item" %></li>
             <% end %>
           </ul>
         </li>
@@ -24,25 +33,25 @@
       <!-- Add your search bar here -->
       <% if user_signed_in? %>
       <li class="nav-item">
-        <%= link_to "Create",item_new_path, class: "btn btn-outline-primary" %> 
+        <%= link_to t("create"),item_new_path, class: "btn btn-outline-primary" %> 
       </li> // SOLVED 
       <% end %>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="<%= t('search') %>" aria-label="<%= t('search') %>">
+        <button class="btn btn-outline-success" type="submit"><%= t('search') %></button>
       </form>
       <!-- Add your sign-in and sign-up links here -->
       <ul class="navbar-nav">
       <% if user_signed_in? %>
      <li class="nav-item">
-          <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "btn btn-outline-danger" %>
+          <%= button_to t("logout"), destroy_user_session_path, method: :delete, data: { turbo: false }, class: "btn btn-outline-danger" %>
       </li>   
         <% else %>
         <li class="nav-item">
-          <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+          <%= link_to t("login"), new_user_session_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Sign Up", new_user_session_path, class: "nav-link" %>
+          <%= link_to t("register"), new_user_registration_path, class: "nav-link" %>
         </li>
         <% end %>
       </ul>

@@ -1,30 +1,32 @@
 Rails.application.routes.draw do
-  get 'item/new'
-  get 'item/history'
-  get '/item/:id', to: 'item#show', as: 'item'
-  get 'user/manager'
-  get 'items_by_category/:category', to: 'home#items_by_category', as: 'items_by_category_home'
-  get 'items/category/:category', to: 'item#category', as: 'items_by_category'
-  devise_for :users, controllers: {
+  scope "(:locale)", locale: /en|ru/ do
+    get 'item/new'
+    get 'item/history'
+    get '/item/:id', to: 'item#show', as: 'item'
+    get 'user/manager'
+    get 'items_by_category/:category', to: 'home#items_by_category', as: 'items_by_category_home'
+    get 'items/category/:category', to: 'item#category', as: 'items_by_category'
+    devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
-  root 'home#index'
-  resources :item, only: [:new, :create]
+    root 'home#index'
+    resources :item, only: [:new, :create]
 
-  resources :items do
-    resources :comments, only: [:create]
-  end
-
-  resources :users, only: [:manager] do
-    member do
-      put 'block_multiple', to: 'user#block_multiple'
-      put 'block', to: 'user#block'
-      put 'unblock', to: 'user#unblock'
-      put 'add_admin', to: 'user#add_admin'
-      put 'remove_admin', to: 'user#remove_admin'
-      delete 'delete', to: 'user#destroy'
+    resources :items do
+      resources :comments, only: [:create]
     end
+
+    resources :users, only: [:manager] do
+      member do
+        put 'block_multiple', to: 'user#block_multiple'
+        put 'block', to: 'user#block'
+        put 'unblock', to: 'user#unblock'
+        put 'add_admin', to: 'user#add_admin'
+        put 'remove_admin', to: 'user#remove_admin'
+        delete 'delete', to: 'user#destroy'
+      end
     
+    end
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

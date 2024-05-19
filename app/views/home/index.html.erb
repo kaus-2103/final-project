@@ -1,8 +1,7 @@
 <% if user_signed_in? %>
-  <h1>Welcome Home, <%= current_user.name %></h1>
-  <%= link_to "Sign out", destroy_user_session_path, method: :delete, data: { turbo: false } %>
+  <h1><%= t("welcome_home", username: current_user.name) %></h1>
 <% else %>
-  <h1>Home</h1>
+  <h1><%= t("Home") %></h1>
 <% end %>
 
 <div class="container">
@@ -13,8 +12,8 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"><%= category %></h5>
-              <p class="card-text">Items in <%= category %></p>
-              <%= link_to "View Items", items_by_category_path(category), class: "btn btn-primary" %>
+              <p class="card-text"><%= t("items_in") %> <%= category %></p>
+              <%= link_to t("view_items"), items_by_category_path(category), class: "btn btn-primary" %>
             </div>
           </div>
         </div>

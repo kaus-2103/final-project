@@ -7,11 +7,11 @@
           <th>
             <%= check_box_tag :select_all, nil, false, id: 'select-all-checkbox' %>
           </th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Account Status</th>
-          <th>Actions</th>
+          <th><%= t('name') %></th>
+          <th><%= t('email') %></th>
+          <th><%= t('role') %></th>
+          <th><%= t('status') %></th>
+          <th><%= t('action') %></th>
         </tr>
       </thead>
       <tbody>
@@ -22,15 +22,14 @@
             </td>
             <td><%= user.name %></td>
             <td><%= user.email %></td>
-            <td><%= user.admin ? 'Admin' : 'User' %></td>
-            <td><%= user.status ? 'Active' : 'Blocked' %></td>
+            <td><%= user.admin ? t('admin') :  t('user') %></td>
+            <td><%= user.status ? t('active') : t('blocked') %></td>
             <td>
-              <%= button_to 'Block', block_user_path(user), method: :put, class: 'btn btn-danger' if user.status %>
-              <%= button_to 'Unblock', unblock_user_path(user), method: :put, class: 'btn btn-success' unless user.status %>
-              <%= button_to 'Add Admin', add_admin_user_path(user), method: :put, class: 'btn btn-primary' unless user.admin %>
-              <%= button_to 'Remove Admin', remove_admin_user_path(user), method: :put, class: 'btn btn-warning' if user.admin %>
-              <%= button_to 'Delete', delete_user_path(user), method: :delete, class: 'btn btn-danger' %>
-            </td>
+              <%= button_to t('block'), block_user_path(user), method: :put, class: 'btn btn-danger' if user.status %>
+              <%= button_to t('unblock'), unblock_user_path(user), method: :put, class: 'btn btn-success' unless user.status %>
+              <%= button_to t('add_admin'), add_admin_user_path(user), method: :put, class: 'btn btn-primary' unless user.admin %>
+              <%= button_to t('remove_admin'), remove_admin_user_path(user), method: :put, class: 'btn btn-warning' if user.admin %>
+              <%= button_to t('delete'), delete_user_path(user), method: :delete, class: 'btn btn-danger' %>
           </tr>
         <% end %>
       </tbody>
