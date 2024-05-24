@@ -37,4 +37,8 @@ ru:
   admin: "Администратор"
   active: "Активен"
   blocked: "Заблокирован"
-  
+  tags: "Теги"
+  enter_tags_separated_by_commas: "Введите теги через запятую"
+  post_comment: "Оставить комментарий"
+  reply: "Ответить"
+  no_image_available : "Нет изображения"

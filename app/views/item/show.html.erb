@@ -1,11 +1,11 @@
 <div class="container">
-  <h1><%= @item.name %></h1>
-  <p>Category: <%= @item.category %></p>
-  <p>Description: <%= @item.description %></p>
+  <h1><%= t("item.name", default: @item.name) %></h1>
+  <h3><%= t("item.category", default: "Category") %>: <%= @item.category %></h3>
+  <p><%= t("item.description", default: "Description") %>: <%= @item.description %></p>
   <% if @item.image.present? %>
-    <img src="<%= @item.image %>" alt="<%= @item.name %> Image">
+    <img src="<%= @item.image %>" alt="<%= t("item.image_alt", default: "Image") %>">
   <% else %>
-    <p>No image available</p>
+    <p><%= t("item.no_image_available", default: "No image available") %></p>
   <% end %>
 </div>
 
@@ -14,7 +14,7 @@
       <%= form.label :content, class: "form-label" %>
       <%= form.text_area :content, class: "form-control", rows: 3 %>
     </div>
-    <%= form.submit "Post Comment", class: "btn btn-primary" %>
+    <%= form.submit t("post_comment"), class: "btn btn-primary" %>
   <% end %>
 </div>
 
@@ -42,7 +42,7 @@
             <%= form.label :content, class: "form-label" %>
             <%= form.text_area :content, class: "form-control", rows: 3 %>
           </div>
-          <%= form.submit "Post Reply", class: "btn btn-primary btn-sm" %>
+          <%= form.submit t("reply"), class: "btn btn-primary btn-sm" %>
         <% end %>
       </div>
     </div>

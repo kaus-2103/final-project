@@ -6,14 +6,14 @@
         <div class="card-body">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal" }) do |f| %>
             <div class="form-group">
-              <%= f.label :email, class: "col-form-label col-md-4 text-md-right" %>
+              <%= f.label t(:email), class: "col-form-label col-md-4 text-md-right" %>
               <div class="col-md-8">
                 <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
               </div>
             </div>
   
             <div class="form-group">
-              <%= f.label :password, class: "col-form-label col-md-4 text-md-right" %>
+              <%= f.label t(:password), class: "col-form-label col-md-4 text-md-right" %>
               <div class="col-md-8">
                 <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
               </div>
@@ -23,14 +23,14 @@
               <div class="form-group">
                 <div class="col-md-8 offset-md-4">
                   <%= f.check_box :remember_me, class: "form-check-input" %>
-                  <%= f.label :remember_me, class: "form-check-label" %>
+                  <%= f.label t(:remember_me), class: "form-check-label" %>
                 </div>
               </div>
             <% end %>
   
             <div class="form-group">
               <div class="col-md-8 offset-md-4">
-                <%= f.submit "Log in", class: "btn btn-primary" %>
+                <%= f.submit t("login"), class: "btn btn-primary" %>
               </div>
             </div>
           <% end %>

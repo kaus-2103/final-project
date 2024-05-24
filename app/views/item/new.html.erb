@@ -12,6 +12,10 @@
     <%= form.label t(:description), class: "form-label" %>
     <%= form.text_area :description, class: "form-control" %>
   </div>
+  <<div class="col-md-6">
+    <%= form.label :tags, t(:tags), class: "form-label" %>
+    <%= form.text_field :tags, class: "form-control", placeholder: t("enter_tags_separated_by_commas") %>
+  </div>
   <div class="col-12">
     <%= form.label t(:image), class: "form-label" %>
     <%= form.file_field :image, class: "form-control" %>

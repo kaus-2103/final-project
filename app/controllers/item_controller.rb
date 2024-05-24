@@ -6,6 +6,7 @@ class ItemController < ApplicationController
 
   def create
     @item = current_user.items.build(item_params)
+    @item.tags = params[:item][:tags].split(',').map(&:strip) if params[:item][:tags].present?
     if @item.save
       redirect_to root_path, notice: "Item was successfully created."
     else
@@ -30,6 +31,6 @@ class ItemController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :category, :image)
+    params.require(:item).permit(:name, :description, :category, :image,:tags)
   end
 end

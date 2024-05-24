@@ -16,8 +16,9 @@
           <div class="card h-100">
             <div class="card-body">
               <h5 class="card-title"><%= item.name %></h5>
-              <p class="card-text">Category: <%= item.category %></p>
-              <p class="card-text"><%= item.description %></p>
+              <p class="card-text"><%= t('category') %>: <%= item.category %></p>
+              <p class="card-text"><%= t('description') %>: <%= item.description %></p>
+              <p class="card-text"><%= t('tags') %>: <%= item.tags.join(', ') %></p>
             </div>
           </div>
         </a>
