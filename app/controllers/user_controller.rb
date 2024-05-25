@@ -57,6 +57,12 @@ class UserController < ApplicationController
     end
   end
 
+  def profile
+    @user = current_user
+    @collections = @user.collections
+    @items = @user.items
+  end
+
   private
 
   def set_user

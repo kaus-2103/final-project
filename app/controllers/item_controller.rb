@@ -17,6 +17,7 @@ class ItemController < ApplicationController
   def history
     @user = current_user
     @items = current_user.items
+    @collections = current_user.collections
   end
 
   def show 
@@ -28,9 +29,18 @@ class ItemController < ApplicationController
     @items = Item.where(category: @category)
   end
 
+  
   private
 
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def set_collection
+    @collection = Collection.find(params[:collection_id])
+  end
+
   def item_params
-    params.require(:item).permit(:name, :description, :category, :image,:tags)
+    params.require(:item).permit(:name, :description, :category, :image,:tags,:collection_id)
   end
 end

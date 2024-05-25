@@ -1,0 +1,17 @@
+  <div class="container">
+    <h1><%= t('Collections') %></h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% current_user.collections.each do |collection| %>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= collection.name %></h5>
+              <p class="card-text"><%= t('description') %>: <%= collection.description %></p>
+              <p class="card-text"><%= t('category') %>: <%= collection.category %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+

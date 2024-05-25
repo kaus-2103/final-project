@@ -1,19 +1,30 @@
 Rails.application.routes.draw do
+  
   scope "(:locale)", locale: /en|ru/ do
+    get 'user/profile'
     get 'item/new'
+    get 'collection/new'
     get 'item/history'
     get '/item/:id', to: 'item#show', as: 'item'
     get 'user/manager'
     get 'items_by_category/:category', to: 'home#items_by_category', as: 'items_by_category_home'
     get 'items/category/:category', to: 'item#category', as: 'items_by_category'
+    # get 'collection/:id/edit', to: 'collection#edit', as: 'edit_collection'
+    # patch 'collection/:id', to: 'collection#update', as: 'update_collection'
     devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
     root 'home#index'
-    resources :item, only: [:new, :create]
+    resources :item, only: [:new, :create, :edit]
 
     resources :items do
       resources :comments, only: [:create]
+    end
+
+    resources :collection, only: [:new, :create]
+
+    resources :collection do
+      resources :items
     end
 
     resources :users, only: [:manager] do
