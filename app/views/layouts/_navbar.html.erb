@@ -43,12 +43,6 @@
       <ul class="navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to t("create"), item_new_path, class: "btn btn-outline-primary" %>
-          </li> <!-- SOLVED -->
-        <% end %>
-
-        <% if user_signed_in? %>
-          <li class="nav-item">
             <%= button_to t("logout"), destroy_user_session_path, method: :delete, data: { turbo: false }, class: "btn btn-outline-danger" %>
           </li>
         <% else %>

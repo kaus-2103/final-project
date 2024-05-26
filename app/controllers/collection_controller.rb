@@ -1,6 +1,6 @@
 class CollectionController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_collection, only: [:edit, :update]
+  before_action :set_collection, only: [:edit, :update, :show]
 
   def new
     @collection = current_user.collections.build
@@ -27,6 +27,10 @@ class CollectionController < ApplicationController
     end
   end
 
+  def show
+    @items = @collection.items
+  end
+
   private
 
   def set_collection
@@ -34,6 +38,6 @@ class CollectionController < ApplicationController
   end
 
   def collection_params
-    params.require(:collection).permit(:name, :description, :category, :image)
+    params.require(:collection).permit(:name, :description, :category, :image, custom_fields: {})
   end
 end

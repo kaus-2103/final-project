@@ -1,4 +1,4 @@
-<%= form_with(model: @item, url: item_index_path, local: true, html: { class: "row g-3" }) do |form| %>
+<%= form_with(model: @item, url: collection_item_index_path(@collection), local: true, html: { class: "row g-3" }) do |form| %>
 
   <div class="col-md-6">
     <%= form.label t(:name), class: "form-label" %>
@@ -19,6 +19,12 @@
   <div class="col-md-6">
     <%= form.label :collection_id, t(:collection), class: "form-label" %>
     <%= form.collection_select :collection_id, Collection.all, :id, :name, prompt: t("select_collection") %>
+  </div>
+  <div>
+  <% @collection.custom_field_keys.each do |field| %>
+    <%= form.label field, field.to_s.humanize %>
+    <%= form.text_field field, class: 'form-control', name: "item[custom_fields][#{field}]" %>
+  <% end %>
   </div>
   <div class="col-12">
     <%= form.label t(:image), class: "form-label" %>

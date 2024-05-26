@@ -13,12 +13,14 @@
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <% current_user.collections.each do |collection| %>
       <div class="col">
+        <a href="<%= collection_path(collection) %>" class="text-decoration-none">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title"><%= collection.name %></h5>
             <p class="card-text"><%= t('description') %>: <%= collection.description %></p>
             <p class="card-text"><%= t('category') %>: <%= collection.category %></p>
           </div>
+          </a>
           <div class="card-footer d-flex justify-content-end">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
