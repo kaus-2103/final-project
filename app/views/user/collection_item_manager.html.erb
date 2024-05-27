@@ -1,0 +1,65 @@
+<div class="container my-5">
+  <div class="row">
+    
+    <!-- Collections Section -->
+    <div class="col-12 mb-4">
+      <h3 class="mb-3">Collections</h3>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th><%= t('action') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @collections.each do |collection| %>
+              <tr>
+                <td><%= collection.name %></td>
+                <td><%= collection.description %></td>
+                <td><%= collection.category %></td>
+                <td>
+                  <%= link_to t('edit'), edit_collection_path(collection.id), class: 'btn btn-secondary btn-sm me-2' %>
+                  <%= link_to t('delete'), collection_path(collection.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Items Section -->
+    <div class="col-12">
+      <h3 class="mb-3">Items</h3>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th><%= t('action') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @items.each do |item| %>
+              <tr>
+                <td><%= item.name %></td>
+                <td><%= item.description %></td>
+                <td><%= item.category %></td>
+                <td>
+                  <%= link_to t('edit'), edit_collection_item_path(item.collection, item), class: 'btn btn-secondary btn-sm me-2' %>
+                  <%= button_to t('delete'), collection_item_path(item.collection, item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+</div>

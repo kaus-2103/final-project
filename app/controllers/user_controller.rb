@@ -63,6 +63,16 @@ class UserController < ApplicationController
     @items = @user.items
   end
 
+  def collection_item_manager
+    if current_user.admin?
+      @user = User.all
+      @collections = Collection.all
+      @items = Item.all
+    else
+      redirect_to root_path, alert: "You are not authorized to access this page."
+    end
+  end
+
   private
 
   def set_user

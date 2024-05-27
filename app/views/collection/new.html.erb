@@ -20,11 +20,13 @@
   </div>
 
   <h3>Custom Fields</h3>
-  <% 3.times do |i| %>
-    <div class="field">
-      <%= form.label "custom_fields_field_name_#{i + 1}", "Field Name #{i + 1}" %>
-      <%= form.text_field "custom_fields_field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
-    </div>
+  <%= form.fields_for :custom_fields, OpenStruct.new(@collection.custom_fields || {}) do |cf| %>
+    <% 3.times do |i| %>
+      <div class="field">
+        <%= cf.label "field_name_#{i + 1}", "Field Name #{i + 1}" %>
+        <%= cf.text_field "field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
+      </div>
+    <% end %>
   <% end %>
 
   <div class="form-group">

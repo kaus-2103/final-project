@@ -21,10 +21,14 @@
     <%= form.collection_select :collection_id, Collection.all, :id, :name, prompt: t("select_collection") %>
   </div>
   <div>
-  <% @collection.custom_field_keys.each do |field| %>
-    <%= form.label field, field.to_s.humanize %>
-    <%= form.text_field field, class: 'form-control', name: "item[custom_fields][#{field}]" %>
-  <% end %>
+  <div>
+    <% @collection.custom_fields.each do |field_key, field_name| %>
+      <div class="mb-3">
+        <%= form.label field_key, field_name, class: "form-label" %>
+        <%= form.text_field field_key, class: "form-control", name: "item[custom_fields][#{field_key}]" %>
+      </div>
+    <% end %>
+  </div>
   </div>
   <div class="col-12">
     <%= form.label t(:image), class: "form-label" %>

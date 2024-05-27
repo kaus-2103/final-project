@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   
   scope "(:locale)", locale: /en|ru/ do
+    get 'search', to: 'home#search', as: 'search_items'
     get 'user/profile'
     get 'item/new'
     get 'collection/new'
     get 'item/history'
     get '/item/:id', to: 'item#show', as: 'item'
     get 'user/manager'
+    get 'user/collection_item_manager'
     get 'items_by_category/:category', to: 'home#items_by_category', as: 'items_by_category_home'
     get 'items/category/:category', to: 'item#category', as: 'items_by_category'
     devise_for :users, controllers: {
@@ -21,8 +23,11 @@ Rails.application.routes.draw do
 
    
 
-    resources :collection, only: [:new, :create, :show, :edit] do
-      resources :item, only: [:new, :create, :destroy, :update, :edit]
+    resources :collection, only: [:new, :create, :show, :edit, :destroy] do
+      resources :item, only: [:new, :create, :destroy, :update, :edit, :history]
+        collection do
+         get 'history', to: 'item#history'
+      end
     end
 
     resources :users, only: [:manager] do

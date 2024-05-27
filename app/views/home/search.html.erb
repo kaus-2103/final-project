@@ -1,0 +1,44 @@
+<h3><%= t('search_results_for', query: @query) %></h3>
+
+<% if @all_items.any? %>
+  <h4><%= t('items') %></h4>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @all_items.each do |item| %>
+      <div class="col">
+        <a href="<%= item_path(item) %>" class="text-decoration-none">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= item.name %></h5>
+              <p class="card-text"><%= t('category') %>: <%= item.category %></p>
+              <p class="card-text"><%= t('description') %>: <%= item.description %></p>
+              <p class="card-text"><%= t('tags') %>: <%= item.tags.join(', ') %></p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p><%= t('no_items_found') %></p>
+<% end %>
+
+<% if @collections.any? %>
+  <h4><%= t('collections') %></h4>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @collections.each do |collection| %>
+      <div class="col">
+        <a href="<%= collection_path(collection) %>" class="text-decoration-none">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= collection.name %></h5>
+              <p class="card-text"><%= t('category') %>: <%= collection.category %></p>
+              <p class="card-text"><%= t('description') %>: <%= collection.description %></p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p><%= t('no_collections_found') %></p>
+<% end %>

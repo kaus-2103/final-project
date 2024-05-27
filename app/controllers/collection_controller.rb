@@ -1,6 +1,6 @@
 class CollectionController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_collection, only: [:edit, :update, :show]
+  before_action :authenticate_user!, except: :show
+  before_action :set_collection, only: [:edit, :update, :show, :destroy]
 
   def new
     @collection = current_user.collections.build
@@ -29,6 +29,11 @@ class CollectionController < ApplicationController
 
   def show
     @items = @collection.items
+  end
+
+  def destroy
+    @collection.destroy
+    redirect_to root_path, notice: "Collection was successfully deleted." 
   end
 
   private
