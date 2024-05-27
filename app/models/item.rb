@@ -3,4 +3,13 @@ class Item < ApplicationRecord
   belongs_to :user
   belongs_to :collection
   has_many :comments, dependent: :destroy
+  def copy_and_transform_custom_fields_from_collection
+    self.custom_field = transform_custom_fields(collection.custom_fields)
+  end
+
+  private
+
+  def transform_custom_fields(custom_fields)
+    custom_fields.values.map { |field_value| [field_value,""] }.to_h
+  end
 end

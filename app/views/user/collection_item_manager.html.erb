@@ -22,7 +22,7 @@
                 <td><%= collection.category %></td>
                 <td>
                   <%= link_to t('edit'), edit_collection_path(collection.id), class: 'btn btn-secondary btn-sm me-2' %>
-                  <%= link_to t('delete'), collection_path(collection.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                  <%= button_to t('delete'), collection_path(collection.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
                 </td>
               </tr>
             <% end %>

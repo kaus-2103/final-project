@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
    
 
-    resources :collection, only: [:new, :create, :show, :edit, :destroy] do
+    resources :collection, only: [:new, :create, :show, :edit, :destroy, :update] do
       resources :item, only: [:new, :create, :destroy, :update, :edit, :history]
         collection do
          get 'history', to: 'item#history'

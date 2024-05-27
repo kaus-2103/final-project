@@ -1,6 +1,6 @@
 <h1>Edit Collection</h1>
 
-<%= form_with(model: @collection, local: true) do |form| %>
+<%= form_with(model: @collection, url: collection_path(@collection),method: :put, local: true, html: { class: "row g-3" }) do |form| %>
   <div class="mb-3">
     <%= form.label :name, class: "form-label" %>
     <%= form.text_field :name, class: "form-control" %>
@@ -13,6 +13,44 @@
     <%= form.label :description, class: "form-label" %>
     <%= form.text_area :description, class: "form-control" %>
   </div>
+
+  <h3>Custom Fields</h3>
+<div class="custom-fields">
+  <% existing_fields = @collection.custom_fields || {} %>
+  <% existing_fields.each_with_index do |(key, value), index| %>
+    <div class="field">
+      <%= form.label key, key.to_s.humanize, class: 'form-label' %>
+      <%= form.text_field key, name: "collection[custom_fields][#{key}]", value: value, class: "form-control" %>
+    </div>
+  <% end %>
+</div>
+
+<button type="button" class="btn btn-secondary" id="add-custom-field">+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('add-custom-field').addEventListener('click', function() {
+      const customFieldsContainer = document.querySelector('.custom-fields');
+      const customFields = customFieldsContainer.querySelectorAll('.field');
+      const lastCustomField = customFields[customFields.length - 1];
+      const newCustomField = lastCustomField.cloneNode(true);
+
+      // Increment field number in label and input name
+      const newIndex = customFields.length + 1;
+      const newKey = `field_name_${newIndex}`;
+
+      newCustomField.querySelector('label').textContent = "Field Name " + newIndex;
+      newCustomField.querySelector('label').setAttribute('for', newKey);
+      newCustomField.querySelector('input').name = `collection[custom_fields][${newKey}]`;
+      newCustomField.querySelector('input').id = newKey;
+      newCustomField.querySelector('input').value = '';
+
+      customFieldsContainer.appendChild(newCustomField);
+    });
+  });
+</script>
+
+
   <div class="mb-3">
     <%= form.label :image, class: "form-label" %>
     <%= form.file_field :image, class: "form-control" %>

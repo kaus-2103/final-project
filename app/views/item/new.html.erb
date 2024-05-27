@@ -22,13 +22,13 @@
   </div>
   <div>
   <div>
-    <% @collection.custom_fields.each do |field_key, field_name| %>
-      <div class="mb-3">
-        <%= form.label field_key, field_name, class: "form-label" %>
-        <%= form.text_field field_key, class: "form-control", name: "item[custom_fields][#{field_key}]" %>
-      </div>
-    <% end %>
-  </div>
+  <% @item.custom_field.each do |field_key, field_value| %>
+     <div class="field">
+      <%= form.label field_key, field_key, class: 'form-label' %>
+      <%= form.text_field field_key, name: "item[custom_fields][#{field_key}]",value: field_value, class: "form-control" %>
+    </div>
+  <% end %>
+</div>
   </div>
   <div class="col-12">
     <%= form.label t(:image), class: "form-label" %>

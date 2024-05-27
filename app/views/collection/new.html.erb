@@ -19,17 +19,46 @@
     <%= form.file_field :image, class: "form-control" %>
   </div>
 
-  <h3>Custom Fields</h3>
-  <%= form.fields_for :custom_fields, OpenStruct.new(@collection.custom_fields || {}) do |cf| %>
-    <% 3.times do |i| %>
-      <div class="field">
-        <%= cf.label "field_name_#{i + 1}", "Field Name #{i + 1}" %>
-        <%= cf.text_field "field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
-      </div>
-    <% end %>
+
+  
+ <h3>Custom Fields</h3>
+<div class="custom-fields">
+  <% 3.times do |i| %>
+    <div class="field">
+      <%= form.label "field_name_#{i + 1}", "Field Name #{i + 1}", class: 'form-label' %>
+      <%= form.text_field "field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
+    </div>
   <% end %>
+</div>
+
+<button type="button" class="btn btn-secondary" id="add-custom-field">+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('add-custom-field').addEventListener('click', function() {
+      const customFieldsContainer = document.querySelector('.custom-fields');
+      const customFields = customFieldsContainer.querySelectorAll('.field');
+      const lastCustomField = customFields[customFields.length - 1];
+      const newCustomField = lastCustomField.cloneNode(true);
+
+      // Increment field number in label and input name
+      const newIndex = customFields.length + 1;
+      newCustomField.querySelector('label').textContent = "Field Name " + newIndex;
+      newCustomField.querySelector('label').setAttribute('for', 'field_name_' + newIndex);
+      newCustomField.querySelector('input').name = "collection[custom_fields][field_name_" + newIndex + "]";
+      newCustomField.querySelector('input').id = "field_name_" + newIndex;
+      newCustomField.querySelector('input').value = '';
+
+      newCustomField.classList.remove('d-none');
+      customFieldsContainer.appendChild(newCustomField);
+    });
+  });
+</script>
+
+
 
   <div class="form-group">
     <%= form.submit "Save Collection", class: "btn btn-primary" %>
   </div>
 <% end %>
+

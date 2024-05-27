@@ -48,6 +48,10 @@
             <p class="card-text"><%= t('category') %>: <%= item.category %></p>
             <p class="card-text"><%= t('description') %>: <%= item.description %></p>
             <p class="card-text"><%= t('tags') %>: <%= item.tags.join(', ') %></p>
+
+            <% item.custom_field.each do |field_key,field_name| %>
+            <p class="card-text"><%= field_key %>: <%= field_name %></p>
+            <% end %>
           </div>
         </a>
         <div class="card-footer d-flex justify-content-end">

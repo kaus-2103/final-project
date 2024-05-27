@@ -5,10 +5,16 @@ class ItemController < ApplicationController
   def new
     collection = @collection
     @item = collection.items.build
+    @item.copy_and_transform_custom_fields_from_collection
   end
 
   def create
     @item = current_user.items.build(item_params)
+    @item.copy_and_transform_custom_fields_from_collection
+    Rails.logger.debug "Items found: #{@item_params}"
+    if params[:item][:custom_fields].present?
+      @item.custom_field = params[:item][:custom_fields]
+    end
     @item.tags = params[:item][:tags].split(',').map(&:strip) if params[:item][:tags].present?
     if @item.save
       redirect_to root_path, notice: "Item was successfully created."
@@ -59,10 +65,9 @@ class ItemController < ApplicationController
 
   def set_collection
     @collection = Collection.find(params[:collection_id])
-    Rails.logger.debug "Collection set: #{@collection.inspect}"
   end
 
   def item_params
-    params.require(:item).permit(:name, :description, :category, :image,:tags,:collection_id,*(@collection.custom_field_keys))
+    params.require(:item).permit(:name, :description, :category, :image,:tags,:collection_id, custom_field: {})
   end
 end
