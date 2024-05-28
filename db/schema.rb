@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_28_070651) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_28_142522) do
   create_table "collections", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_070651) do
     t.text "tags"
     t.integer "collection_id", null: false
     t.json "custom_field"
+    t.json "custom_k"
     t.index ["collection_id"], name: "index_items_on_collection_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end

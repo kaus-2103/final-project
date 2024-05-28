@@ -27,14 +27,21 @@
     <%= form.file_field :image, class: "form-control" %>
   </div>
   
-  <div>
-  <% @item.custom_field.each do |field_key, field_value| %>
-     <div class="field">
-      <%= form.label field_key, field_key, class: 'form-label' %>
-      <%= form.text_field field_key, name: "item[custom_fields][#{field_key}]",value: field_value, class: "form-control" %>
-    </div>
+  <% @item.custom_field.each_pair.zip(@field_key).each do |(key, value), v| %>
+  <div class="field">
+    <%= form.label key, class: 'form-label' %>
+    <% case v %>
+      <% when 'text' %>
+        <%= form.text_field key,name:"item[custom_fields][#{key}]", value: value, class: "form-control" %>
+      <% when 'number' %>
+        <%= form.number_field key, name:"item[custom_fields][#{key}]", value: value, class: "form-control" %>
+      <% when 'date' %>
+        <%= form.date_field key, name:"item[custom_fields][#{key}]", value: value, class: "form-control" %>
+      <% when 'boolean' %>
+        <%= form.check_box key, name:"item[custom_fields][#{key}]", value: "1", checked: value == 'true', class: "form-check-input" %>
+    <% end %>
+  </div>
   <% end %>
-</div>
 
   <div class="mb-3">
     <%= form.submit "Save Item", class: "btn btn-primary" %>

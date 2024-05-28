@@ -21,13 +21,15 @@
 
 
   
- <h3>Custom Fields</h3>
+<h3>Custom Fields</h3>
 <div class="custom-fields">
   <% 3.times do |i| %>
     <div class="field">
       <%= form.label "field_name_#{i + 1}", "Field Name #{i + 1}", class: 'form-label' %>
       <%= form.text_field "field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
-      
+
+      <%= form.label "field_type_#{i + 1}", "Field Type", class: 'form-label' %>
+      <%= form.select "field_type_#{i + 1}", options_for_select([['Text', 'text'], ['Number', 'number'], ['Date', 'date'], ['Boolean', 'boolean']]), { include_blank: 'Select Type' }, name: "collection[custom_field_types][field_type_#{i + 1}]", class: "form-control" %>
     </div>
   <% end %>
 </div>
@@ -49,6 +51,13 @@
       newCustomField.querySelector('input').name = "collection[custom_fields][field_name_" + newIndex + "]";
       newCustomField.querySelector('input').id = "field_name_" + newIndex;
       newCustomField.querySelector('input').value = '';
+
+      const newKey = `field_type_${newIndex}`;
+
+      newCustomField.querySelector('label').setAttribute('for', newKey);
+      newCustomField.querySelector('select').name = `collection[custom_field_types][${newKey}]`;
+      newCustomField.querySelector('select').id = newKey;
+      newCustomField.querySelector('select').value = '';
 
       newCustomField.classList.remove('d-none');
       customFieldsContainer.appendChild(newCustomField);

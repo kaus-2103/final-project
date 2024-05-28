@@ -6,16 +6,21 @@ class ItemController < ApplicationController
     collection = @collection
     @item = collection.items.build
     @item.copy_and_transform_custom_fields_from_collection
+    @field_key = @collection.custom_field_types.values
   end
 
   def create
     @item = current_user.items.build(item_params)
     @item.copy_and_transform_custom_fields_from_collection
-    Rails.logger.debug "Items found: #{@item_params}"
+  
+    Rails.logger.debug "collection found: #{@collection.custom_field_types}"
+  
     if params[:item][:custom_fields].present?
       @item.custom_field = params[:item][:custom_fields]
     end
+  
     @item.tags = params[:item][:tags].split(',').map(&:strip) if params[:item][:tags].present?
+  
     if @item.save
       redirect_to root_path, notice: "Item was successfully created."
     else
@@ -41,7 +46,7 @@ class ItemController < ApplicationController
   def edit
     @item 
     @collection
-    
+    @field_key = @collection.custom_field_types.values
   end
 
   def update
@@ -75,6 +80,6 @@ class ItemController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:name, :description, :category, :image,:tags,:collection_id, custom_field: {})
+    params.require(:item).permit(:name, :description, :category, :image,:tags,:collection_id, custom_field: {}, custom_k: {})
   end
 end
