@@ -27,6 +27,7 @@
     <div class="field">
       <%= form.label "field_name_#{i + 1}", "Field Name #{i + 1}", class: 'form-label' %>
       <%= form.text_field "field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
+      
     </div>
   <% end %>
 </div>
@@ -54,6 +55,7 @@
     });
   });
 </script>
+
 
 
 

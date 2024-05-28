@@ -17,9 +17,9 @@
     <%= form.text_field :category, class: "form-control" %>
   </div>
   
-  <div class="mb-3">
-    <%= form.label :tags, class: "form-label" %>
-    <%= form.text_field :tags, class: "form-control" %>
+   <div class="col-md-6">
+    <%= form.label :tags, t(:tags), class: "form-label" %>
+    <%= form.text_field :tags, class: "form-control", placeholder: t("enter_tags_separated_by_commas") %>
   </div>
   
   <div class="mb-3">
@@ -28,11 +28,13 @@
   </div>
   
   <div>
-  <% @collection.custom_field_keys.each do |field_key, field_name| %>
-    <%= form.label field, field.to_s.humanize %>
-    <%= form.text_field field, class: 'form-control', name: "item[custom_fields][#{field}]" %>
+  <% @item.custom_field.each do |field_key, field_value| %>
+     <div class="field">
+      <%= form.label field_key, field_key, class: 'form-label' %>
+      <%= form.text_field field_key, name: "item[custom_fields][#{field_key}]",value: field_value, class: "form-control" %>
+    </div>
   <% end %>
-  </div>
+</div>
 
   <div class="mb-3">
     <%= form.submit "Save Item", class: "btn btn-primary" %>

@@ -41,12 +41,19 @@ class ItemController < ApplicationController
   def edit
     @item 
     @collection
+    
   end
 
   def update
+    if params[:item][:custom_fields].present?
+      @item.custom_field = params[:item][:custom_fields]
+    end
     if @item.update(item_params)
-      redirect_to item_history_path, notice: 'Collection was successfully updated.'
-    else
+      @item.tags = params[:item][:tags].split(',').map(&:strip) if params[:item][:tags].present?
+      @item.save
+  
+      redirect_to item_history_path, notice: 'Item was successfully updated.'
+    else 
       render :edit
     end
   end

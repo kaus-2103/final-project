@@ -21,6 +21,7 @@
     <%= form.collection_select :collection_id, Collection.all, :id, :name, prompt: t("select_collection") %>
   </div>
   <div>
+
   <div>
   <% @item.custom_field.each do |field_key, field_value| %>
      <div class="field">
@@ -29,6 +30,7 @@
     </div>
   <% end %>
 </div>
+
   </div>
   <div class="col-12">
     <%= form.label t(:image), class: "form-label" %>

@@ -7,6 +7,7 @@ class CollectionController < ApplicationController
   end
   
   def create
+    Rails.logger.debug "Params: #{params.inspect}"
     @collection = current_user.collections.build(collection_params)
     if @collection.save
       redirect_to root_path, notice: 'Collection was successfully created.'
@@ -43,6 +44,6 @@ class CollectionController < ApplicationController
   end
 
   def collection_params
-    params.require(:collection).permit(:name, :description, :category, :image, custom_fields: {})
+    params.require(:collection).permit(:name, :description, :category, :image, custom_fields: {}, custom_field_types: {})
   end
 end
