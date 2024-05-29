@@ -2,11 +2,7 @@
   <h1><%= t("item.name", default: @item.name) %></h1>
   <h3><%= t("item.category", default: "Category") %>: <%= @item.category %></h3>
   <p><%= t("item.description", default: "Description") %>: <%= @item.description %></p>
-  <% if @item.image.present? %>
-    <img src="<%= @item.image %>" alt="<%= t("item.image_alt", default: "Image") %>">
-  <% else %>
-    <p><%= t("item.no_image_available", default: "No image available") %></p>
-  <% end %>
+  <%= image_tag @item.picture %>
 </div>
 <div>
 <% if current_user.liked_items.include?(@item) %>

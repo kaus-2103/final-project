@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_by_users, through: :likes, source: :user
+  has_one_attached :picture
   def copy_and_transform_custom_fields_from_collection
     self.custom_field = transform_custom_fields(collection.custom_fields)
   end
