@@ -5,7 +5,6 @@ class Collection < ApplicationRecord
  
   validates :name, :category, presence: true
 
-  CATEGORIES = ["Books", "Signs", "Silverware", "Other"].freeze
 
    def custom_field_keys
      (custom_fields || {}).keys.map(&:to_sym)
