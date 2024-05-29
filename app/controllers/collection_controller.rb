@@ -44,6 +44,6 @@ class CollectionController < ApplicationController
   end
 
   def collection_params
-    params.require(:collection).permit(:name, :description, :category, :image, custom_fields: {}, custom_field_types: {})
+    params.require(:collection).permit(:name, :description, :category, :pic2, custom_fields: {}, custom_field_types: {})
   end
 end

@@ -2,6 +2,7 @@ require 'redcarpet'
 class Collection < ApplicationRecord
   belongs_to :user
   has_many :items, dependent: :destroy
+  has_one_attached :pic2
 
  
   validates :name, :category, presence: true

@@ -41,6 +41,7 @@
               <h5 class="card-title <%= cookies[:theme] %>"><%= collection.name %></h5>
               <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= collection.description %></p>
               <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.formatted_category %></p>
+              <%= image_tag url_for(collection.pic2)%> 
             </div>
           </a>
           <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
@@ -70,13 +71,14 @@
       <div class="card h-100 <%= cookies[:theme] %>">
         <a href="<%= item_path(item) %>" class="text-decoration-none">
           <div class="card-body <%= cookies[:theme] %>">
-            <h5 class="card-title <%= cookies[:theme] %>"><%= item.name %></h5>
+            <h5 class="card-title <%= cookies[:theme] %>"><%= item.name %></h5> 
             <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= item.category %></p>
             <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= item.description %></p>
             <p class="card-text <%= cookies[:theme] %>">
               <%= t('tags') %>:
               <%= item.tags.map { |tag| link_to(tag, search_items_path(query: tag), class: 'tag-link') }.join(', ').html_safe %>
             </p>
+            <%= (item.pic)%>
             <% item.custom_field.each do |field_key,field_name| %>
             <p class="card-text <%= cookies[:theme] %>"><%= field_key %>: <%= field_name %></p>
             <% end %>
