@@ -17,67 +17,69 @@
   <div class="container">
     <h1><%= @user.name %>'s Items</h1>
 
+<body class="<%= cookies[:theme] %>">
   <h3><%= t('collections') %></h3>
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <% current_user.collections.each do |collection| %>
-    <div class="col">
-      <a href="<%= collection_path(collection) %>" class="text-decoration-none">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title"><%= collection.name %></h5>
-            <p class="card-text"><%= t('description') %>: <%= collection.description %></p>
-            <p class="card-text"><%= t('category') %>: <%= collection.formatted_category %></p>
-          </div>
-        </a>
-        <div class="card-footer d-flex justify-content-end">
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              Action
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="<%= edit_collection_path(collection) %>">Edit</a></li>
-              <li>
-                <%= button_to t("delete"), collection_path(collection), method: :delete, data: { confirm: 'Are you sure you want to delete this item?' }, class: 'dropdown-item' %>
-              </li>
-            </ul>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% current_user.collections.each do |collection| %>
+      <div class="col">
+        <a href="<%= collection_path(collection) %>" class="text-decoration-none">
+          <div class="card h-100 <%= cookies[:theme] %>">
+            <div class="card-body <%= cookies[:theme] %>">
+              <h5 class="card-title <%= cookies[:theme] %>"><%= collection.name %></h5>
+              <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= collection.description %></p>
+              <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.formatted_category %></p>
+            </div>
+          </a>
+          <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Action
+              </button>
+              <ul class="dropdown-menu <%= cookies[:theme] %>" aria-labelledby="dropdownMenuButton">
+                <li><a class="btn" href="<%= edit_collection_path(collection) %>">Edit</a></li>
+                <li>
+                   <%= button_to t("delete"), collection_path(collection), method: :delete, data: { confirm: 'Are you sure you want to delete this item?' }, class: 'btn' %>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+</body>
+
 
   
-
-  <h3><%= t('items') %></h3%>
+<body class="<%= cookies[:theme] %>">
+<h3><%= t('items') %></h3>
   <div class="row row-cols-1 row-cols-md-3 g-4">
   <% @items.each do |item| %>
     <div class="col">
-      <div class="card h-100">
+      <div class="card h-100 <%= cookies[:theme] %>">
         <a href="<%= item_path(item) %>" class="text-decoration-none">
-          <div class="card-body">
-            <h5 class="card-title"><%= item.name %></h5>
-            <p class="card-text"><%= t('category') %>: <%= item.category %></p>
-            <p class="card-text"><%= t('description') %>: <%= item.description %></p>
-            <p class="card-text">
-                <%= t('tags') %>:
+          <div class="card-body <%= cookies[:theme] %>">
+            <h5 class="card-title <%= cookies[:theme] %>"><%= item.name %></h5>
+            <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= item.category %></p>
+            <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= item.description %></p>
+            <p class="card-text <%= cookies[:theme] %>">
+              <%= t('tags') %>:
               <%= item.tags.map { |tag| link_to(tag, search_items_path(query: tag), class: 'tag-link') }.join(', ').html_safe %>
-              </p>
-
+            </p>
             <% item.custom_field.each do |field_key,field_name| %>
-            <p class="card-text"><%= field_key %>: <%= field_name %></p>
+            <p class="card-text <%= cookies[:theme] %>"><%= field_key %>: <%= field_name %></p>
             <% end %>
           </div>
         </a>
-        <div class="card-footer d-flex justify-content-end">
+        <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
               Action
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="<%= edit_collection_item_path(item.collection, item) %>">Edit</a></li>
+            <ul class="dropdown-menu <%= cookies[:theme] %>" aria-labelledby="dropdownMenuButton">
+              <li><a class="btn" href="<%= edit_collection_item_path(item.collection, item) %>">Edit</a></li>
               <li>
-                <%= button_to t("delete"), collection_item_path(item.collection, item), method: :delete, data: { confirm: 'Are you sure you want to delete this item?' }, class: 'dropdown-item' %>
+                <%= button_to t("delete"), collection_item_path(item.collection, item), method: :delete, data: { confirm: 'Are you sure you want to delete this item?' }, class: 'btn' %>
               </li>
             </ul>
           </div>
@@ -86,4 +88,5 @@
     </div>
   <% end %>
 </div>
+</body>
 </div>

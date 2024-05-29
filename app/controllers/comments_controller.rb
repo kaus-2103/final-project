@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @item.comments.build(comment_params)
-    @comment.user = current_user # Assuming you have authentication set up
+    @comment.user = current_user 
 
     if @comment.save
       redirect_to @item, notice: 'Comment was successfully created.'
@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
 
   def create_reply
     @reply = @comment.replies.build(comment_params)
-    @reply.user = current_user # Assuming you have authentication set up
+    @reply.user = current_user 
 
     if @reply.save
       redirect_to @item, notice: 'Reply was successfully created.'
