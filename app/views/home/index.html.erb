@@ -3,21 +3,100 @@
 <% else %>
   <h1><%= t("Home") %></h1>
 <% end %>
+<style>
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .tag-cloud a {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  .tag-cloud a:hover {
+    transform: scale(1.1);
+  }
+  </style>
 
-<div class="container">
-  <% @categories.each_slice(3) do |category_slice| %>
-    <div class="row">
-      <% category_slice.each do |category| %>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><%= category %></h5>
-              <p class="card-text"><%= t("items_in") %> <%= category %></p>
-              <%= link_to t("view_items"), items_by_category_path(category), class: "btn btn-primary" %>
+<div class="container mt-5 d-flex justify-content-center">
+  <div>
+    <div class="tag-cloud d-flex justify-content-center">
+      <% @most_used_tags.each do |tag| %>
+        <%= link_to tag, search_items_path(query: tag), class: 'btn btn-secondary btn-sm tag-link' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<body class="<%= cookies[:theme] %>">
+  <h3><%= t('collections') %></h3>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @collections.each do |collection| %>
+      <div class="col">
+        <a href="<%= collection_path(collection) %>" class="text-decoration-none">
+          <div class="card h-100 <%= cookies[:theme] %>">
+            <div class="card-body <%= cookies[:theme] %>">
+              <h5 class="card-title <%= cookies[:theme] %>"><%= collection.name %></h5>
+              <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= collection.description %></p>
+              <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.formatted_category %></p>
+            </div>
+          </a>
+          <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Action
+              </button>
+              <ul class="dropdown-menu <%= cookies[:theme] %>" aria-labelledby="dropdownMenuButton">
+                <li><a class="btn" href="<%= edit_collection_path(collection) %>">Edit</a></li>
+                <li>
+                   <%= button_to t("delete"), collection_path(collection), method: :delete, data: { confirm: 'Are you sure you want to delete this item?' }, class: 'btn' %>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      <% end %>
+      </div>
+    <% end %>
+  </div>
+</body>
+
+<body class="<%= cookies[:theme] %>">
+<h3><%= t('items') %></h3>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <%  @latest_items.each do |item| %>
+    <div class="col">
+      <div class="card h-100 <%= cookies[:theme] %>">
+        <a href="<%= item_path(item) %>" class="text-decoration-none">
+          <div class="card-body <%= cookies[:theme] %>">
+            <h5 class="card-title <%= cookies[:theme] %>"><%= item.name %></h5>
+            <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= item.category %></p>
+            <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= item.description %></p>
+            <p class="card-text <%= cookies[:theme] %>">
+              <%= t('tags') %>:
+              <%= item.tags.map { |tag| link_to(tag, search_items_path(query: tag), class: 'tag-link') }.join(', ').html_safe %>
+            </p>
+            <% item.custom_field.each do |field_key,field_name| %>
+            <p class="card-text <%= cookies[:theme] %>"><%= field_key %>: <%= field_name %></p>
+            <% end %>
+          </div>
+        </a>
+        <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              Action
+            </button>
+            <ul class="dropdown-menu <%= cookies[:theme] %>" aria-labelledby="dropdownMenuButton">
+              <li><a class="btn" href="<%= edit_collection_item_path(item.collection, item) %>">Edit</a></li>
+              <li>
+                <%= button_to t("delete"), collection_item_path(item.collection, item), method: :delete, data: { confirm: 'Are you sure you want to delete this item?' }, class: 'btn' %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
+</body>

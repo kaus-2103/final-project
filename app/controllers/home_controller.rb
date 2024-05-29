@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
   def index
     @categories = Item.pluck(:category).uniq
+    @collections = Collection.all.includes(:items).sort_by { |collection| -collection.items.size }.take(5)
+    
+    @latest_items = Item.order(created_at: :desc).limit(5)
+    @most_used_tags = Item.pluck(:tags).flatten.group_by(&:itself).transform_values(&:count).sort_by { |_, count| -count }.take(5).to_h.keys
   end
 
   def items_by_category
@@ -12,10 +16,7 @@ class HomeController < ApplicationController
     redirect_to(request.referrer || root_path)
   end
 
- 
   
-  
-
 
   def search
     @query = params[:query].downcase.strip
@@ -23,7 +24,12 @@ class HomeController < ApplicationController
 
     if @query.present?
       # Simplified item search
-      @items = Item.where('LOWER(name) LIKE :query OR LOWER(description) LIKE :query', query: "%#{@query}%")
+      @items = Item.where(
+        'LOWER(name) LIKE :query OR LOWER(description) LIKE :query OR LOWER(tags) LIKE :query',
+        query: "%#{@query.downcase}%"
+      )
+      
+
       Rails.logger.debug "Items found: #{@items.pluck(:name)}"
 
       # Simplified collection search
