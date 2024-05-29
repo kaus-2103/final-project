@@ -12,6 +12,10 @@ class HomeController < ApplicationController
     redirect_to(request.referrer || root_path)
   end
 
+ 
+  
+  
+
 
   def search
     @query = params[:query].downcase.strip

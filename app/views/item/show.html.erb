@@ -2,13 +2,17 @@
   <h1><%= t("item.name", default: @item.name) %></h1>
   <h3><%= t("item.category", default: "Category") %>: <%= @item.category %></h3>
   <p><%= t("item.description", default: "Description") %>: <%= @item.description %></p>
-  <% if @item.image.present? %>
-    <img src="<%= @item.image %>" alt="<%= t("item.image_alt", default: "Image") %>">
-  <% else %>
-    <p><%= t("item.no_image_available", default: "No image available") %></p>
-  <% end %>
+  <%=  @item.image %>
 </div>
-
+<div>
+<div>
+    <%= button_to 'Unlike', item_like_path(@item), method: :delete, class: 'btn btn-danger' %>
+    <%= button_to 'Like', item_like_path(@item), class: 'btn btn-primary' %>
+</div>
+</div>
+<p>
+  <strong>Likes:</strong> <%= @item.likes.count %>
+</p>
 <%= form_with(model: [@item, Comment.new]) do |form| %>
     <div class="mb-3">
       <%= form.label :content, class: "form-label" %>
@@ -18,33 +22,13 @@
   <% end %>
 </div>
 
-
+<body class="<%= cookies[:theme] %>">
 <% @item.comments.each do |comment| %>
-  <div class="container mt-4">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-text"><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
-        
-        <!-- Display Replies -->
-        <% comment.replies.each do |reply| %>
-          <div class="container mt-2">
-            <div class="card">
-              <div class="card-body">
-                <p class="card-text"><strong><%= reply.user.name %> (Reply):</strong> <%= reply.content %></p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-
-        <!-- Reply Form -->
-        <%= form_with(model: [@item, comment.replies.build]) do |form| %>
-          <div class="mb-3">
-            <%= form.label :content, class: "form-label" %>
-            <%= form.text_area :content, class: "form-control", rows: 3 %>
-          </div>
-          <%= form.submit t("reply"), class: "btn btn-primary btn-sm" %>
-        <% end %>
+    <div class="card <%= cookies[:theme] %>">
+      <div class="card-body <%= cookies[:theme] %>">
+        <p class="card-text <%= cookies[:theme] %>"><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
       </div>
     </div>
-  </div>
 <% end %>
+</body>
+
