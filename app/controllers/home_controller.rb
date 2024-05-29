@@ -7,7 +7,10 @@ class HomeController < ApplicationController
     @category = params[:category]
     @items = Item.where(category: @category)
   end
-
+  def update
+    cookies[:theme] = params[:theme]
+    redirect_to(request.referrer || root_path)
+  end
 
 
   def search

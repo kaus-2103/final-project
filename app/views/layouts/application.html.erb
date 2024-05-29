@@ -18,7 +18,9 @@
     <%= javascript_importmap_tags %>
   </head>
   <%= render 'layouts/navbar' %>
-  <body>
-    <%= yield %>
+  <body class="<%= cookies[:theme] %>">
+  <%= cookies[:theme] %>
+    
+  <%= yield %>
   </body>
 </html>

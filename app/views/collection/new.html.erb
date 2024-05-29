@@ -29,7 +29,7 @@
       <%= form.text_field "field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
 
       <%= form.label "field_type_#{i + 1}", "Field Type", class: 'form-label' %>
-      <%= form.select "field_type_#{i + 1}", options_for_select([['Text', 'text'], ['Number', 'number'], ['Date', 'date'], ['Boolean', 'boolean']]), { include_blank: 'Select Type' }, name: "collection[custom_field_types][field_type_#{i + 1}]", class: "form-control" %>
+      <%= form.select "field_type_#{i + 1}", options_for_select([['Text', 'text'], ['Number', 'number'], ['Date', 'date'], ['Boolean', 'boolean'],['Paragraph', 'paragraph']]), { include_blank: 'Select Type' }, name: "collection[custom_field_types][field_type_#{i + 1}]", class: "form-control" %>
     </div>
   <% end %>
 </div>

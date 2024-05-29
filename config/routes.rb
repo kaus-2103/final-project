@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   scope "(:locale)", locale: /en|ru/ do
+    get 'set_theme', to: 'home#update'
     get 'search', to: 'home#search', as: 'search_items'
     get 'user/profile'
     get 'item/new'

@@ -13,4 +13,202 @@
  *= require_tree .
  *= require_self
  */
+ 
  @import '../../../node_modules/bootstrap/scss/bootstrap';
+ 
+ :root {
+  --light-bg-color: white;
+  --light-text-color: black;
+  --dark-bg-color: black;
+  --dark-text-color: white;
+  --silver-bg-color : silver;
+  --blue-bg_color : rgb(17, 17, 87);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--dark-bg-color);
+    color: var(--dark-text-color);
+  }
+
+  body.light {
+    background: var(--light-bg-color);
+    color: var(--light-text-color);
+  }
+  
+  .card {
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
+    border-color: rgba(255, 255, 255, 0.125);
+  }
+
+  .card.light {
+    background-color: var(--silver-bg-color);
+    color: var(--light-text-color);
+    border-color: rgba(0, 0, 0, 0.122);
+  }
+
+  .dropdown-item{
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
+    border-color: rgba(255, 255, 255, 0.125);
+  }
+
+  .dropdown-item.light{
+    background-color: var(--light-bg-color);
+    color: var(--light-text-color);
+    border-color: rgba(0, 0, 0, 0.125);
+  }
+
+  .card-body {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.125);
+  }
+
+  .card-body.light {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }
+  
+
+  .card-title {
+    color: var(--dark-text-color);
+  }
+
+  .card-title.light {
+    color: var(--light-text-color);
+  }
+
+  .card-text {
+    color: var(--dark-text-color);
+  }
+
+  .card-text.light {
+    color: var(--light-text-color);
+  }
+
+  .card-footer {
+    background-color: var(--dark-bg-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.811);
+  }
+
+  .card-footer.light {
+    background-color: var(--silver-bg-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.827);
+  }
+
+  .dropdown-item:hover.light {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+
+  .navbar-light {
+    background-color: rgba(167, 158, 158, 0.804) !important;
+    color: var(--light-text-color) !important;
+  }
+  
+  .navbar-dark {
+    background-color: rgba(4, 1, 33, 0.847) !important;
+    color: var(--dark-text-color) !important;
+  }
+
+  .dropdown-menu {
+    background-color:  rgb(18, 14, 58);
+    color: var(--dark-text-color);
+  }
+
+  .dropdown-menu.light {
+    background-color:rgba(167, 158, 158, 0.804);
+    color: var(--light-text-color);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: var(--light-bg-color);
+    color: var(--light-text-color);
+  }
+
+  body.dark {
+    background: var(--dark-bg-color);
+    color: var(--dark-text-color);
+  }
+  
+  .card {
+    background-color: var(--light-bg-color);
+    color: var(--light-text-color);
+    border-color: rgba(0, 0, 0, 0.125);
+  }
+
+  .card.dark {
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
+    border-color: rgba(255, 255, 255, 0.125);
+  }
+
+  .dropdown-item{
+    background-color: var(--light-bg-color);
+    color: var(--light-text-color);
+    border-color: rgba(0, 0, 0, 0.125);
+  }
+
+  .dropdown-item.dark{
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
+    border-color: rgba(255, 255, 255, 0.125);
+  }
+
+  .card-body {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  .card-body.light {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.125);
+  }
+
+  .card-title {
+    color: var(--light-text-color);
+  }
+
+  .card-title.dark {
+    color: var(--dark-text-color);
+  }
+
+  .card-text {
+    color: var(--light-text-color);
+  }
+
+  .card-title.dark {
+    color: var(--dark-text-color);
+  }
+
+  .card-footer {
+    background-color: var(--light-bg-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  .card-footer.dark {
+    background-color: var(--dark-bg-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.811);
+  }
+
+  .dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+
+  .dropdown-item:hover.dark {
+    background-color: rgba(255, 255, 255, 0.827);
+  }
+
+  .dropdown-menu {
+    background-color:rgba(4, 1, 33, 0.847);
+    color: var(--light-text-color);
+  }
+
+  .dropdown-menu.dark {
+    background-color: rgba(167, 158, 158, 0.804);
+    color: var(--dark-text-color);
+  }
+}
