@@ -3,7 +3,7 @@ class Collection < ApplicationRecord
   belongs_to :user
   has_many :items, dependent: :destroy
 
- 
+
   validates :name, :category, presence: true
 
   # CATEGORIES = ["Books", "Signs", "Silverware", "Other"]

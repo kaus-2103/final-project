@@ -47,11 +47,6 @@
 
 <button type="button" class="btn btn-secondary" id="add-custom-field">+</button>
 
-  <div class="form-group">
-    <%= form.submit "Save Collection", class: "btn btn-primary" %>
-  </div>
-<% end %>
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('add-custom-field').addEventListener('click', function() {
@@ -62,36 +57,29 @@
 
       // Increment field number in label and input name
       const newIndex = customFields.length + 1;
+      const newKey = `field_name_${newIndex}`;
+
       newCustomField.querySelector('label').textContent = "Field Name " + newIndex;
-      newCustomField.querySelector('label').setAttribute('for', 'field_name_' + newIndex);
-      newCustomField.querySelector('input').name = "collection[custom_fields][field_name_" + newIndex + "]";
-      newCustomField.querySelector('input').id = "field_name_" + newIndex;
+      newCustomField.querySelector('label').setAttribute('for', newKey);
+      newCustomField.querySelector('input').name = `collection[custom_fields][${newKey}]`;
+      newCustomField.querySelector('input').id = newKey;
       newCustomField.querySelector('input').value = '';
 
-      const newKey = `field_type_${newIndex}`;
+      const newTypeKey = `field_type_${newIndex}`;
 
-      newCustomField.querySelector('label').setAttribute('for', newKey);
-      newCustomField.querySelector('select').name = `collection[custom_field_types][${newKey}]`;
-      newCustomField.querySelector('select').id = newKey;
+      newCustomField.querySelector('label').setAttribute('for', newTypeKey);
+      newCustomField.querySelector('select').name = `collection[custom_field_types][${newTypeKey}]`;
+      newCustomField.querySelector('select').id = newTypeKey;
       newCustomField.querySelector('select').value = '';
 
       newCustomField.classList.remove('d-none');
       customFieldsContainer.appendChild(newCustomField);
-
-      // Add an event listener to the text field to detect when it gains focus
-    textField.addEventListener('focus', function() {
-      textField.style.display = 'none';
-      selectBox.style.display = 'block';
-    });
-
-    // Add an event listener to the select box to detect when a value is selected
-    selectBox.addEventListener('change', function() {
-      if (selectBox.value === '') {
-        selectBox.style.display = 'none';
-        textField.style.display = 'block';
-      } else {
-        textField.value = selectBox.value;
-      }
     });
   });
 </script>
+
+  <div class="form-group">
+    <%= form.submit "Save Collection", class: "btn btn-primary" %>
+  </div>
+<% end %>
+

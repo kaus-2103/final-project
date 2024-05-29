@@ -12,7 +12,7 @@ class CollectionController < ApplicationController
     if @collection.save
       redirect_to root_path, notice: 'Collection was successfully created.'
     else
-      render :new
+      render :new, locals: { error_messages: @collection.errors.full_messages }
     end
   end
 
