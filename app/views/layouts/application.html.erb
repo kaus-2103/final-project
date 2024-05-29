@@ -19,6 +19,9 @@
   </head>
   <%= render 'layouts/navbar' %>
   <body>
+    <body class="<%= cookies[:theme] %>">
+    <%= cookies[:theme] %>
+    
     <%= yield %>
   </body>
 </html>

@@ -8,7 +8,10 @@ class HomeController < ApplicationController
     @items = Item.where(category: @category)
   end
 
-
+  def update
+    cookies[:theme] = params[:theme]
+    redirect_to(request.referrer || root_path)
+  end
 
   def search
     @query = params[:query].downcase.strip
@@ -16,7 +19,12 @@ class HomeController < ApplicationController
 
     if @query.present?
       # Simplified item search
-      @items = Item.where('LOWER(name) LIKE :query OR LOWER(description) LIKE :query', query: "%#{@query}%")
+      @items = Item.where(
+        'LOWER(name) LIKE :query OR LOWER(description) LIKE :query OR LOWER(tags) LIKE :query',
+        query: "%#{@query.downcase}%"
+      )
+      
+
       Rails.logger.debug "Items found: #{@items.pluck(:name)}"
 
       # Simplified collection search

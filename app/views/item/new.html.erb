@@ -34,6 +34,8 @@
         <%= form.date_field key, name:"item[custom_fields][#{key}]", value: value, class: "form-control" %>
       <% when 'boolean' %>
         <%= form.check_box key, name:"item[custom_fields][#{key}]", value: "1", checked: value == 'true', class: "form-check-input" %>
+      <% when 'paragraph' %>
+        <%= form.text_area key, name:"item[custom_fields][#{key}]", value: value, class: "form-control" %>
     <% end %>
   </div>
   <% end %>
