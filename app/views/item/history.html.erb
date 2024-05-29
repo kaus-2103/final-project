@@ -27,7 +27,7 @@
             <div class="card-body <%= cookies[:theme] %>">
               <h5 class="card-title <%= cookies[:theme] %>"><%= collection.name %></h5>
               <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= collection.description %></p>
-              <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.category %></p>
+              <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.formatted_category %></p>
             </div>
           </a>
           <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
