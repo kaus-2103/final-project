@@ -3,6 +3,8 @@ class Item < ApplicationRecord
   belongs_to :user
   belongs_to :collection
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_by_users, through: :likes, source: :user
   def copy_and_transform_custom_fields_from_collection
     self.custom_field = transform_custom_fields(collection.custom_fields)
   end
