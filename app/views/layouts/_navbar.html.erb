@@ -37,9 +37,9 @@
 
       <div>
         <% if cookies[:theme] == 'light' %>
-          <%= link_to 'Dark', set_theme_path(theme: 'dark'), class: 'btn' %>
+          <%= link_to t('dark'), set_theme_path(theme: 'dark'), class: 'btn' %>
         <% else %>
-          <%= link_to 'Light', set_theme_path(theme: 'light'), class: 'btn' %>
+          <%= link_to t('light'), set_theme_path(theme: 'light'), class: 'btn' %>
         <% end %>
       </div>
       

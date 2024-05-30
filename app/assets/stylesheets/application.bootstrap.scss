@@ -22,7 +22,7 @@
   --dark-bg-color: black;
   --dark-text-color: white;
   --silver-bg-color : silver;
-  --blue-bg_color : rgb(17, 17, 87);
+  --blue-bg-color : rgb(3, 1, 27);
 }
 
 
@@ -38,9 +38,9 @@
   }
   
   .card {
-    background-color: var(--dark-bg-color);
+    background-color: var(--blue-bg-color);
     color: var(--dark-text-color);
-    border-color: rgba(255, 255, 255, 0.125);
+    border-color: rgb(157, 148, 148);
   }
 
   .card.light {
@@ -52,7 +52,7 @@
   .dropdown-item{
     background-color: var(--dark-bg-color);
     color: var(--dark-text-color);
-    border-color: rgba(255, 255, 255, 0.125);
+    border-color: rgba(255, 255, 255, 0.975);
   }
 
   .dropdown-item.light{
@@ -62,7 +62,7 @@
   }
 
   .card-body {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.125);
+    border-bottom: 1px solid rgb(157, 148, 148);
   }
 
   .card-body.light {
@@ -87,8 +87,8 @@
   }
 
   .card-footer {
-    background-color: var(--dark-bg-color);
-    border-top: 1px solid rgba(255, 255, 255, 0.811);
+    background-color: var(--blue-bg-color);
+    border-top: 1px solid rgb(157, 148, 148);
   }
 
   .card-footer.light {

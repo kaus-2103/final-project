@@ -35,15 +35,17 @@
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <% @collections.each do |collection| %>
       <div class="col">
-        <a href="<%= collection_path(collection) %>" class="text-decoration-none">
-          <div class="card h-100 <%= cookies[:theme] %>">
-            <div class="card-body <%= cookies[:theme] %>">
-              <h5 class="card-title <%= cookies[:theme] %>"><%= collection.name %></h5>
-              <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= collection.description %></p>
-              <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.formatted_category %></p>
-              <%= image_tag url_for(collection.pic2)%> 
-            </div>
-          </a>
+        <div class="card h-100 <%= cookies[:theme] %>">
+          <div class="card-header p-0 position-relative" style="height: 200px; overflow: hidden;">
+            <%= link_to collection_path(collection), class: 'text-decoration-none' do %>
+              <%= image_tag collection.pic2.present? ? url_for(collection.pic2) : 'placeholder.jpg', class: 'img-fluid w-100 h-100', style: 'object-fit: cover;' %>
+            <% end %>
+          </div>
+          <div class="card-body <%= cookies[:theme] %>">
+            <h5 class="card-title <%= cookies[:theme] %>"><%= collection.name %></h5>
+            <p class="card-text <%= cookies[:theme] %>"><%= t('description') %>: <%= collection.description %></p>
+            <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.formatted_category %></p>
+          </div>
           <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,12 +65,17 @@
   </div>
 </body>
 
+
 <body class="<%= cookies[:theme] %>">
 <h3><%= t('items') %></h3>
   <div class="row row-cols-1 row-cols-md-3 g-4">
   <%  @latest_items.each do |item| %>
     <div class="col">
-      <div class="card h-100 <%= cookies[:theme] %>">
+      <div class="card h-100 <%= cookies[:theme] %>"><div class="card-header p-0 position-relative" style="height: 200px; overflow: hidden;">
+            <%= link_to collection_item_path(item.collection,item), class: 'text-decoration-none' do %>
+              <%= image_tag item.pic.present? ? url_for(item.pic) : 'placeholder.jpg', class: 'img-fluid w-100 h-100', style: 'object-fit: cover;' %>
+            <% end %>
+          </div>
         <a href="<%= item_path(item) %>" class="text-decoration-none">
           <div class="card-body <%= cookies[:theme] %>">
             <h5 class="card-title <%= cookies[:theme] %>"><%= item.name %></h5> 
@@ -78,7 +85,6 @@
               <%= t('tags') %>:
               <%= item.tags.map { |tag| link_to(tag, search_items_path(query: tag), class: 'tag-link') }.join(', ').html_safe %>
             </p>
-            <%= (item.pic)%>
             <% item.custom_field.each do |field_key,field_name| %>
             <p class="card-text <%= cookies[:theme] %>"><%= field_key %>: <%= field_name %></p>
             <% end %>

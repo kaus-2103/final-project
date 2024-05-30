@@ -41,9 +41,10 @@
   <% end %>
 
   <div class="col-12">
-    <%= form.label t(:image), class: "form-label" %>
+    <%= form.label t(:image) %>
     <%= form.file_field :pic, class: "form-control" %>
   </div>
+
   <div class="col-12">
     <%= form.submit t("create_item"), class: "btn btn-primary" %>
   </div>
