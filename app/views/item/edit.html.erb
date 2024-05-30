@@ -1,4 +1,7 @@
-<h1>Edit Item</h1>
+<div class="card card-sm <%= cookies[:theme] %>">
+  <div class="card-body <%= cookies[:theme] %>">
+    <h5 class="card-title <%= cookies[:theme] %>">Edit the Item</h5>
+
 
 <%= form_with(model: [@collection, @item], local: true) do |form| %>
     <% Rails.logger.debug "Collection: #{@collection.inspect}" %>
@@ -10,11 +13,6 @@
   <div class="mb-3">
     <%= form.label :description, class: "form-label" %>
     <%= form.text_area :description, class: "form-control" %>
-  </div>
-  
-  <div class="mb-3">
-    <%= form.label :category, class: "form-label" %>
-    <%= form.text_field :category, class: "form-control" %>
   </div>
   
    <div class="col-md-6">
@@ -49,3 +47,5 @@
     <%= form.submit "Save Item", class: "btn btn-primary" %>
   </div>
 <% end %>
+</div>
+</div>

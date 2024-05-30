@@ -1,34 +1,57 @@
-<h1>Edit Collection</h1>
-
-<%= form_with(model: @collection, url: collection_path(@collection),method: :put, local: true, html: { class: "row g-3" }) do |form| %>
+<div class="card card-sm <%= cookies[:theme] %>">
+  <div class="card-body <%= cookies[:theme] %>">
+    <h5 class="card-title <%= cookies[:theme] %>">Edit the Collection</h5>
+<%= form_with(model: @collection, url: collection_path(@collection), method: :put, local: true, html: { class: "row g-3" }) do |form| %>
   <div class="mb-3">
     <%= form.label :name, class: "form-label" %>
     <%= form.text_field :name, class: "form-control" %>
   </div>
+
   <div class="mb-3">
     <%= form.label :category, class: "form-label" %>
     <%= form.text_field :category, class: "form-control" %>
   </div>
+
   <div class="mb-3">
     <%= form.label :description, class: "form-label" %>
     <%= form.text_area :description, class: "form-control" %>
   </div>
 
   <h3>Custom Fields</h3>
-<div class="custom-fields">
-  <% @collection.custom_fields.each_with_index do |field, i| %>
-    <div class="field">
-      <%= form.label "field_name_#{i + 1}", "Field Name #{i + 1}", class: 'form-label' %>
-      <%= form.text_field "field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
+  <div class="custom-fields">
+    <% @collection.custom_fields.each_with_index do |field, i| %>
+      <div class="field mb-3">
+        <div class="form-group">
+          <%= form.label "field_name_#{i + 1}", "Field Name #{i + 1}", class: 'form-label' %>
+          <%= form.text_field "field_name_#{i + 1}", name: "collection[custom_fields][field_name_#{i + 1}]", class: "form-control" %>
+        </div>
 
-      <%= form.label "field_type_#{i + 1}", "Field Type", class: 'form-label' %>
-      <%= form.select "field_type_#{i + 1}", options_for_select([['Text', 'text'], ['Number', 'number'], ['Date', 'date'], ['Boolean', 'boolean']]), { include_blank: 'Select Type' }, name: "collection[custom_field_types][field_type_#{i + 1}]", class: "form-control" %>
-    </div>
-  <% end %>
+        <div class="form-group">
+          <%= form.label "field_type_#{i + 1}", "Field Type", class: 'form-label' %>
+          <%= form.select "field_type_#{i + 1}", options_for_select([['Text', 'text'], ['Number', 'number'], ['Date', 'date'], ['Boolean', 'boolean'], ['Paragraph', 'paragraph']]), { include_blank: 'Select Type' }, name: "collection[custom_field_types][field_type_#{i + 1}]", class: "form-control" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center mb-3">
+    <button type="button" class="btn btn-secondary" id="add-custom-field">+</button>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :image, class: "form-label" %>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Update Collection", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Back', item_history_path, class: "btn btn-secondary" %>
 </div>
-
-<button type="button" class="btn btn-secondary" id="add-custom-field">+</button>
-
+</div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('add-custom-field').addEventListener('click', function() {
@@ -39,35 +62,27 @@
 
       // Increment field number in label and input name
       const newIndex = customFields.length + 1;
-      const newKey = `field_name_${newIndex}`;
 
-      newCustomField.querySelector('label').textContent = "Field Name " + newIndex;
-      newCustomField.querySelector('label').setAttribute('for', newKey);
-      newCustomField.querySelector('input').name = `collection[custom_fields][${newKey}]`;
-      newCustomField.querySelector('input').id = newKey;
-      newCustomField.querySelector('input').value = '';
+      // Update field name label and input
+      const newNameLabel = newCustomField.querySelectorAll('label')[0];
+      newNameLabel.textContent = "Field Name " + newIndex;
+      newNameLabel.setAttribute('for', 'field_name_' + newIndex);
 
-      const newTypeKey = `field_type_${newIndex}`;
+      const newNameInput = newCustomField.querySelector('input[type="text"]');
+      newNameInput.name = "collection[custom_fields][field_name_" + newIndex + "]";
+      newNameInput.id = "field_name_" + newIndex;
+      newNameInput.value = '';
 
-      newCustomField.querySelector('label').setAttribute('for', newTypeKey);
-      newCustomField.querySelector('select').name = `collection[custom_field_types][${newTypeKey}]`;
-      newCustomField.querySelector('select').id = newTypeKey;
-      newCustomField.querySelector('select').value = '';
+      // Update field type label and select
+      const newTypeLabel = newCustomField.querySelectorAll('label')[1];
+      newTypeLabel.setAttribute('for', 'field_type_' + newIndex);
 
-      newCustomField.classList.remove('d-none');
+      const newTypeSelect = newCustomField.querySelector('select');
+      newTypeSelect.name = "collection[custom_field_types][field_type_" + newIndex + "]";
+      newTypeSelect.id = "field_type_" + newIndex;
+      newTypeSelect.value = '';
+
       customFieldsContainer.appendChild(newCustomField);
     });
   });
 </script>
-
-
-  <div class="mb-3">
-    <%= form.label :image, class: "form-label" %>
-    <%= form.file_field :image, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.submit "Update Collection", class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', item_history_path, class: "btn btn-secondary" %>

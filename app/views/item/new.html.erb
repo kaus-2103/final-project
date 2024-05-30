@@ -1,12 +1,12 @@
+<div class="card card-sm <%= cookies[:theme] %>">
+  <div class="card-body <%= cookies[:theme] %>">
+    <h5 class="card-title <%= cookies[:theme] %>">Create a Item</h5>
+
 <%= form_with(model: @item, url: collection_item_index_path(@collection), local: true, html: { class: "row g-3" }) do |form| %>
 
   <div class="col-md-6">
     <%= form.label t(:name), class: "form-label" %>
     <%= form.text_field :name, class: "form-control" %>
-  </div>
-  <div class="col-md-7">
-    <%= form.label t(:category), class: "form-label" %>
-    <%= form.text_field :category, class: "form-control" %>
   </div>
   <div class="col-12">
     <%= form.label t(:description), class: "form-label" %>
@@ -15,10 +15,6 @@
   <div class="col-md-6">
     <%= form.label :tags, t(:tags), class: "form-label" %>
     <%= form.text_field :tags, class: "form-control", placeholder: t("enter_tags_separated_by_commas") %>
-  </div>
-  <div class="col-md-6">
-    <%= form.label :collection_id, t(:collection), class: "form-label" %>
-    <%= form.collection_select :collection_id, Collection.all, :id, :name, prompt: t("select_collection") %>
   </div>
   <div>
 
@@ -49,4 +45,7 @@
     <%= form.submit t("create_item"), class: "btn btn-primary" %>
   </div>
 <% end %>
+
+  </div> 
+</div>
 

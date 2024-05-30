@@ -2,10 +2,10 @@
   <div class="row">
     
     <!-- Collections Section -->
-    <div class="col-12 mb-4">
-      <h3 class="mb-3">Collections</h3>
+    <div class="card <%= cookies[:theme] %>">
+      <h3 class="card-header <%= cookies[:theme] %>">Collections</h3>
       <div class="table-responsive">
-        <table class="table table-hover table-striped table-bordered">
+        <table class="table <%= cookies[:theme] == 'dark' ? 'table-dark' : '' %> table-borderless table-hover mb-0">
           <thead class="table-dark">
             <tr>
               <th>Name</th>
@@ -31,11 +31,13 @@
       </div>
     </div>
 
+    <div class="w-500 h-100 mb-2"></div>
+
     <!-- Items Section -->
-    <div class="col-12">
-      <h3 class="mb-3">Items</h3>
+    <div class="card <%= cookies[:theme] %>">
+      <h3 class="card-header <%= cookies[:theme] %>">Items</h3>
       <div class="table-responsive">
-        <table class="table table-hover table-striped table-bordered">
+        <table class="table <%= cookies[:theme] == 'dark' ? 'table-dark' : '' %> table-borderless table-hover mb-0">
           <thead class="table-dark">
             <tr>
               <th>Name</th>
