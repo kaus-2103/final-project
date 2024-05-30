@@ -123,6 +123,18 @@
     background-color:rgba(167, 158, 158, 0.804);
     color: var(--light-text-color);
   }
+  
+  .list-group-item{
+    background-color:  rgb(18, 14, 58);
+    color: var(--dark-text-color);
+  }
+
+  .list-group-item.light{
+    background-color:rgba(167, 158, 158, 0.804);
+    color: var(--light-text-color);
+  }
+
+ 
 }
 
 @media (prefers-color-scheme: light) {
@@ -208,6 +220,16 @@
   }
 
   .dropdown-menu.dark {
+    background-color: rgba(167, 158, 158, 0.804);
+    color: var(--dark-text-color);
+  }
+
+  .list-group-item{
+    background-color:rgba(4, 1, 33, 0.847);
+    color: var(--light-text-color);
+  }
+
+  .list-group-item.dark{
     background-color: rgba(167, 158, 158, 0.804);
     color: var(--dark-text-color);
   }

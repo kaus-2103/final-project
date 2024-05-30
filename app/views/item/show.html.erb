@@ -1,34 +1,58 @@
-<div class="container">
-  <h1><%= t("item.name", default: @item.name) %></h1>
-  <h3><%= t("item.category", default: "Category") %>: <%= @item.category %></h3>
-  <p><%= t("item.description", default: "Description") %>: <%= @item.description %></p>
-  <%=  @item.image %>
-</div>
-<div>
-<div>
-    <%= button_to 'Unlike', item_like_path(@item), method: :delete, class: 'btn btn-danger' %>
-    <%= button_to 'Like', item_like_path(@item), class: 'btn btn-primary' %>
-</div>
-</div>
-<p>
-  <strong>Likes:</strong> <%= @item.likes.count %>
-</p>
-<%= form_with(model: [@item, Comment.new]) do |form| %>
-    <div class="mb-3">
-      <%= form.label :content, class: "form-label" %>
-      <%= form.text_area :content, class: "form-control", rows: 3 %>
-    </div>
-    <%= form.submit t("post_comment"), class: "btn btn-primary" %>
-  <% end %>
-</div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-4 <%= cookies[:theme] %>">
+        <div class="card-header p-0" style="height: 400px; overflow: hidden;">
+          <%= image_tag @item.pic.present? ? url_for(@item.pic) : 'placeholder.jpg', class: 'img-fluid w-100 h-100', style: 'object-fit: cover;' %>
+        </div>
+        <div class="card-body <%= cookies[:theme] %>">
+          <h1 class="card-title"><%= t("item.name", default: @item.name) %></h1>
+          <h3 class="card-subtitle mb-2 text-muted"><%= t("category", default: "Category") %>: <%= @item.category %></h3>
+          <p class="card-text"><%= t("description", default: "Description") %>: <%= @item.description %></p>
+          <div class="d-flex justify-content-between">
+            <div>
+             <div class="d-flex justify-content-between">
+              <div>
+                <%= t('like') %> <%= like_button_for(@item, current_user) %>
+              </div>
+          </div>
 
-<body class="<%= cookies[:theme] %>">
-<% @item.comments.each do |comment| %>
-    <div class="card <%= cookies[:theme] %>">
-      <div class="card-body <%= cookies[:theme] %>">
-        <p class="card-text <%= cookies[:theme] %>"><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+            </div>
+            <div>
+              <strong><%= t("likes") %>:</strong> <%= @item.likes.count %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4 <%= cookies[:theme] %>">
+        <div class="card-header">
+          <h5><%= t("comments") %></h5>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: [@item, Comment.new], local: true) do |form| %>
+            <div class="mb-3">
+              <%= form.label :content, class: "form-label" %>
+              <%= form.text_area :content, class: "form-control", rows: 3 %>
+            </div>
+            <%= form.submit t("post_comment"), class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="list-group <%= cookies[:theme] %>">
+        <% @item.comments.each do |comment| %>
+          <div class="list-group-item <%= cookies[:theme] %>">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"><%= comment.user.name %></h5>
+            </div>
+            <p class="mb-1"><%= comment.content %></p>
+          </div>
+        <% end %>
       </div>
     </div>
-<% end %>
+
+
+<body class="<%= cookies[:theme] %>">
 </body>
 
