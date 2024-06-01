@@ -64,7 +64,11 @@ class UserController < ApplicationController
   end
 
   def collection_item_manager
-    if current_user.admin?
+    if current_user.admin == false 
+      @user = current_user
+      @collections = @user.collections
+      @items = @user.items
+    elsif current_user.admin?
       @user = User.all
       @collections = Collection.all
       @items = Item.all

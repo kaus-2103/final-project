@@ -26,10 +26,12 @@
               <% end %></li>
             <% end %>
             
-            <% if user_signed_in? && current_user.admin? %>
+            <% if user_signed_in?  %>
               <li><hr class="dropdown-divider"></li>
-              <li><%= link_to t("user_manager"), user_manager_path, class: "btn" %></li>
               <li><%= link_to t("item_manager"), user_collection_item_manager_path, class: "btn" %></li>
+              <% if current_user.admin?%>
+                <li><%= link_to t("user_manager"), user_manager_path, class: "btn" %></li>
+              <% end %>
             <% end %>
           </ul>
         </li>

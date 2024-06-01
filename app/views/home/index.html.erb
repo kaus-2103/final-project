@@ -47,6 +47,7 @@
             <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.formatted_category %></p>
           </div>
           <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
+          <% if current_user.id == collection.user_id  || current_user.admin?%>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 Action
@@ -58,6 +59,7 @@
                 </li>
               </ul>
             </div>
+          <% end %>
           </div>
         </div>
       </div>
@@ -91,17 +93,19 @@
           </div>
         </a>
         <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              Action
-            </button>
-            <ul class="dropdown-menu <%= cookies[:theme] %>" aria-labelledby="dropdownMenuButton">
-              <li><a class="btn" href="<%= edit_collection_item_path(item.collection, item) %>">Edit</a></li>
-              <li>
-                <%= button_to t("delete"), collection_item_path(item.collection, item), method: :delete, data: { confirm: 'Are you sure you want to delete this item?' }, class: 'btn' %>
-              </li>
-            </ul>
-          </div>
+          <% if current_user.admin? || current_user.id == item.collection.user_id  %>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Action
+              </button>
+              <ul class="dropdown-menu <%= cookies[:theme] %>" aria-labelledby="dropdownMenuButton">
+                <li><a class="btn" href="<%= edit_collection_item_path(item.collection, item) %>">Edit</a></li>
+                <li>
+                  <%= button_to t("delete"), collection_item_path(item.collection, item), method: :delete, data: { confirm: 'Are you sure you want to delete this item?' }, class: 'btn' %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

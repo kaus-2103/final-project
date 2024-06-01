@@ -28,6 +28,7 @@
           </div>
         </a>
         <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
+        <% if current_user.admin? || current_user.id == item.collection.user_id  %>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
               Action
@@ -39,6 +40,7 @@
               </li>
             </ul>
           </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -70,6 +72,7 @@
             <p class="card-text <%= cookies[:theme] %>"><%= t('category') %>: <%= collection.formatted_category %></p>
           </div>
           <div class="card-footer d-flex justify-content-end <%= cookies[:theme] %>">
+          <% if current_user.id == collection.user_id || current_user.admin?%>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 Action
@@ -81,6 +84,7 @@
                 </li>
               </ul>
             </div>
+          <% end %>
           </div>
         </div>
       </div>
