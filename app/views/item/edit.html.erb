@@ -19,7 +19,7 @@
   
    <div class="col-md-6">
     <%= form.label :tags, t(:tags), class: "form-label" %>
-    <%= form.text_field :tags, class: "form-control", placeholder: t("enter_tags_separated_by_commas") %>
+    <%= form.text_field :tags, class: "form-control", placeholder: t("enter_tags_separated_by_commas"),value: @item.tags.join(",") %>
   </div>
   
   <div class="mb-3">

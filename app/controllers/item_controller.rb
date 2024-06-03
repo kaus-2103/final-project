@@ -7,6 +7,10 @@ class ItemController < ApplicationController
     @item = collection.items.build
     @item.copy_and_transform_custom_fields_from_collection
     @field_key = @collection.custom_field_types.values
+    @tags = collection.items.pluck(:tags).flatten.uniq.compact
+    puts "=============================================================================================================="
+    puts"=================================++++++++++++++++++++++++++++++"
+    Rails.logger.debug "tags: #{@tags_array}"
   end
 
   def create
