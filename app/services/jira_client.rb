@@ -32,6 +32,15 @@ class JiraClient
         users = JSON.parse(response.body)
         users.each do |user|
           puts "Display Name: #{user['displayName']}, Account ID: #{user['accountId']}"
+    
+          # Assuming the query is the email of the user in your system
+          local_user = User.find_by(email: query)
+          if local_user
+            local_user.update(accountId: user['accountId'])
+            puts "Account ID saved for user #{local_user.email}"
+          else
+            puts "User with email #{query} not found in local database."
+          end
         end
       else
         puts "Failed to fetch users: #{response.body}"
@@ -63,32 +72,37 @@ class JiraClient
     end
 
     def create_issue(summary, priority, collection_name, link, current_user_email)
-        email = ENV['JIRA_API_USERNAME']
-        api_token = ENV['JIRA_API_TOKEN']
-        auth = Base64.strict_encode64("#{email}:#{api_token}")
-        
-        url = 'https://final-project-icik.atlassian.net/rest/api/2/issue'
-        headers = {
-          'Authorization' => "Basic #{auth}",
-          'Accept' => 'application/json',
-          'Content-Type' => 'application/json'
-        }
-      
         body_data = {
           "fields" => {
             "summary" => "Help Needed: #{summary}",
             "issuetype" => { "id" => "10003" },
-            "reporter" => { "id" => "557058:68ab4dcb-7a30-4b40-81bf-7adc536192c7" },
-            "project" => { "key" => "FPI" },  
-            "description" => "Reported by: #{current_user_email}\nCollection: #{collection_name}\nLink: #{link}",
-            "assignee" => { "emailAddress" => "#{current_user_email}"  }
+            "reporter" => { "id" => current_user_email },
+            "priority" => { "id" => priority },
+            "customfield_10063" => link,  # Directly passing the link as a string
+            "project" => { "key" => "FPI" },
+            "description" => "Reported by: #{current_user_email}\nCollection: #{collection_name}",
           }
         }.to_json
       
-        response = HTTParty.post(url, headers: headers, body: body_data)
+        response = HTTParty.post(
+          "https://final-project-icik.atlassian.net/rest/api/2/issue",
+          body: body_data,
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => "Basic #{Base64.strict_encode64("#{ENV['JIRA_API_USERNAME']}:#{ENV['JIRA_API_TOKEN']}")}"
+          }
+        )
       
         puts "Response: #{response.code} #{response.message}"
         puts response.body
-      end      
+        if response.code == 201
+            issue_key = JSON.parse(response.body)['key']
+            return issue_key
+          else
+            puts "Failed to create issue: #{response.body}"
+            return nil
+          end
+      end
+            
   end
   

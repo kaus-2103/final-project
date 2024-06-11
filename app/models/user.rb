@@ -8,4 +8,5 @@ class User < ApplicationRecord
          has_many :comments, dependent: :destroy
          has_many :collections, dependent: :destroy
          has_many :likes, dependent: :destroy
+         validates :accountId, uniqueness: true, allow_nil: true
         end

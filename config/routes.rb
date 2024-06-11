@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'user/profile'
       post 'user/create_client', to: 'user#create_client'
       post 'tickets/create', to: 'tickets#create'
+      get 'tickets/show', to: 'tickets#show'
       get 'tickets/new', to: 'tickets#new'
       get 'item/new'
       get 'collection/new'
