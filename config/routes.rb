@@ -1,18 +1,22 @@
 Rails.application.routes.draw do
   
+
   scope "(:locale)", locale: /en|ru/ do
-    get 'set_theme', to: 'home#update'
-    get 'search', to: 'home#search', as: 'search_items'
-    get 'user/profile'
-    get 'item/new'
-    get 'collection/new'
-    get 'item/history'
-    get '/item/:id', to: 'item#show', as: 'item'
-    get 'user/manager'
-    get 'user/collection_item_manager'
-    get 'items_by_category/:category', to: 'home#items_by_category', as: 'items_by_category_home'
-    get 'items/category/:category', to: 'item#category', as: 'items_by_category'
-    devise_for :users, controllers: {
+      get 'set_theme', to: 'home#update'
+      get 'search', to: 'home#search', as: 'search_items'
+      get 'user/profile'
+      post 'user/create_client', to: 'user#create_client'
+      post 'tickets/create', to: 'tickets#create'
+      get 'tickets/new', to: 'tickets#new'
+      get 'item/new'
+      get 'collection/new'
+      get 'item/history'
+      get '/item/:id', to: 'item#show', as: 'item'
+      get 'user/manager'
+      get 'user/collection_item_manager'
+      get 'items_by_category/:category', to: 'home#items_by_category', as: 'items_by_category_home'
+      get 'items/category/:category', to: 'item#category', as: 'items_by_category'
+      devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
     root 'home#index'

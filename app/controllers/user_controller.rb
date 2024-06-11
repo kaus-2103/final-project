@@ -77,6 +77,20 @@ class UserController < ApplicationController
     end
   end
 
+  def create_client
+    client = JiraClient.new
+    products = [] # Specify the appropriate application keys
+
+    user_search_response = client.search_user(current_user.email)
+    if user_search_response.present?
+      puts user_search_response
+    else
+      response = client.create_user(current_user.name, current_user.email, products)
+      puts response
+    end
+  end
+  
+
   private
 
   def set_user

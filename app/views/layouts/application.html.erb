@@ -19,8 +19,9 @@
   </head>
   <%= render 'layouts/navbar' %>
   <body class="<%= cookies[:theme] %>">
-
+      <%= button_to t('create_jira_client'), user_create_client_path, method: :post, class: "btn btn-primary me-2" %>
     
+ 
   <%= yield %>
   </body>
 </html>
