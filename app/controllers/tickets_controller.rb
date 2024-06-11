@@ -13,7 +13,9 @@ class TicketsController < ApplicationController
     collection_name = params[:ticket][:collection] || "N/A"  
     link = params[:ticket][:link]
     current_user_email = current_user.accountId  
-
+    puts "======================================================================"
+    puts "accountID: #{current_user_email}"
+    put "======================================================================="
     issue_key = client.create_issue(summary, priority, collection_name, link, current_user_email)
 
     if issue_key

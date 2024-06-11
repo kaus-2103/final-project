@@ -71,12 +71,13 @@ class JiraClient
       puts response.body
     end
 
-    def create_issue(summary, priority, collection_name, link, current_user_email)
+    def create_issue(summary, priority, collection_name, link, accountID)
+      puts "accountID: #{accountID}"
         body_data = {
           "fields" => {
             "summary" => "Help Needed: #{summary}",
             "issuetype" => { "id" => "10003" },
-            "reporter" => { "id" => current_user_email },
+            "reporter" => { "id" => accountID },
             "priority" => { "id" => priority },
             "customfield_10063" => link,  # Directly passing the link as a string
             "project" => { "key" => "FPI" },
