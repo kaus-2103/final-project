@@ -81,7 +81,7 @@ class JiraClient
             "priority" => { "id" => priority },
             "customfield_10063" => link,  # Directly passing the link as a string
             "project" => { "key" => "FPI" },
-            "description" => "Reported by: #{current_user_email}\nCollection: #{collection_name}",
+            "description" => "\nCollection: #{collection_name}",
           }
         }.to_json
       
