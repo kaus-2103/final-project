@@ -15,7 +15,7 @@ class TicketsController < ApplicationController
     current_user_email = current_user.accountId  
     puts "======================================================================"
     puts "accountID: #{current_user_email}"
-    put "======================================================================="
+    puts "======================================================================="
     issue_key = client.create_issue(summary, priority, collection_name, link, current_user_email)
 
     if issue_key
