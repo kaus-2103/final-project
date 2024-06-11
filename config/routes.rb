@@ -27,6 +27,11 @@ Rails.application.routes.draw do
       resources :comments, only: [:create]
       resource :like, only: [:create, :destroy]
     end
+    namespace :api do
+      namespace :v1 do
+        resources :collections, only: [:index, :show]
+      end
+    end
 
    
 
@@ -36,7 +41,7 @@ Rails.application.routes.draw do
          get 'history', to: 'item#history'
       end
     end
-
+    post 'user/:id/generate_api_token', to: 'user#generate_api_token', as: 'generate_api_token'
     resources :users, only: [:manager] do
       member do
         put 'block_multiple', to: 'user#block_multiple'

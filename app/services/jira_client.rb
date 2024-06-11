@@ -12,6 +12,29 @@ class JiraClient
         password: ENV['JIRA_API_TOKEN']
       }
     end
+
+    def get_issue_status(issue_key)
+      email = ENV['JIRA_API_USERNAME']
+      api_token = ENV['JIRA_API_TOKEN']
+      auth = Base64.strict_encode64("#{email}:#{api_token}")
+      url = "https://final-project-icik.atlassian.net/rest/api/2/issue/#{issue_key}"
+      puts url
+      headers = {
+        'Authorization' => "Basic #{auth}",
+        'Accept' => 'application/json'
+      }
+  
+      response = HTTParty.get(url, headers: headers)
+      puts "Response: #{response.code} #{response.message}"
+      if response.code == 200
+        issue_data = response.parsed_response
+        status = issue_data['fields']['status']['name']
+        status
+      else
+        puts "Failed to fetch issue: #{response.message}"
+        nil
+      end
+    end
   
     def search_user(query)
       email = ENV['JIRA_API_USERNAME']
@@ -71,17 +94,18 @@ class JiraClient
       puts response.body
     end
 
-    def create_issue(summary, priority, collection_name, link, accountID)
+    def create_issue(summary, priority, collection_name, link, accountID,description)
       puts "accountID: #{accountID}"
         body_data = {
           "fields" => {
-            "summary" => "Help Needed: #{summary}",
+            "summary" => "#{summary}",
             "issuetype" => { "id" => "10003" },
             "reporter" => { "id" => accountID },
             "priority" => { "id" => priority },
-            "customfield_10063" => link,  # Directly passing the link as a string
+            "customfield_10063" => link,  
             "project" => { "key" => "FPI" },
-            "description" => "\nCollection: #{collection_name}",
+            "customfield_10064" =>  collection_name || "N/A",
+            "description" => " #{description}",
           }
         }.to_json
       

@@ -5,16 +5,18 @@
     <% @tickets.each do |ticket| %>
       <div class="col-md-4">
         <div class="card mb-4 <% cookies[:theme] %>">
-          <div class="card-body<% cookies[:theme] %>">
-            <h5 class="card-title<% cookies[:theme] %>"><%= ticket.summary %></h5>
+          <div class="card-body <% cookies[:theme] %>">
+            <h5 class="card-title <% cookies[:theme] %>"><%= ticket.summary %></h5>
             <h6 class="card-subtitle mb-2 ">Priority: <%= ticket.priority %></h6>
-            <p class="card-text<% cookies[:theme] %>">
+            <p class="card-text <% cookies[:theme] %>">
               <strong>Collection:</strong> <%= ticket.collection %><br>
               <strong>Link:</strong> <%= link_to "View in Jira", "https://final-project-icik.atlassian.net/browse/#{ticket.key}", target: "_blank" %>
             </p>
+            <p class="card-text"><strong>Status:</strong> <%= @ticket_statuses[ticket.key] %></p>
           </div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
+

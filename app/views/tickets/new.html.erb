@@ -25,6 +25,11 @@
     <%= form.text_field :collection %>
   </div>
 
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
   <%= form.hidden_field :link, value: @link %>
   
   <div class="actions">

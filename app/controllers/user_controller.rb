@@ -89,7 +89,11 @@ class UserController < ApplicationController
       puts response
     end
   end
-  
+  def generate_api_token
+    token = current_user.generate_api_token
+    puts token
+    redirect_to root_path, notice: "API token generated successfully."
+  end
 
   private
 
