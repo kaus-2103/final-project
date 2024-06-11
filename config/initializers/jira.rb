@@ -1,8 +1,5 @@
 require 'jira-ruby'
-require 'dotenv'
 
-# Load environment variables from .env file
-Dotenv.load
 
 # Get the API token from environment variables
 api_token = ENV['JIRA_API_TOKEN']
