@@ -92,6 +92,21 @@ class JiraClient
 
       puts "Response: #{response.code} #{response.message}"
       puts response.body
+      if response.code == 200
+        users = JSON.parse(response.body)
+        users.each do |user|
+          puts "Display Name: #{user['displayName']}, Account ID: #{user['accountId']}"
+    
+          # Assuming the query is the email of the user in your system
+          local_user = User.find_by(email: query)
+          if local_user
+            local_user.update(accountId: user['accountId'])
+            puts "Account ID saved for user #{local_user.email}"
+          else
+            puts "User with email #{query} not found in local database."
+          end
+        end
+      end
     end
 
     def create_issue(summary, priority, collection_name, link, accountID,description)
