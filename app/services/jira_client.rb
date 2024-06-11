@@ -1,7 +1,7 @@
 require 'httparty'
 require 'json'
 require 'base64'
-require 'dotenv'
+# require 'dotenv'
 class JiraClient
     include HTTParty
     base_uri ENV['JIRA_SITE']
