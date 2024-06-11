@@ -85,7 +85,7 @@ class UserController < ApplicationController
     if user_search_response.present?
       puts user_search_response
     else
-      response = client.create_user(current_user.name, current_user.email, products)
+      response = client.create_user(current_user.email, current_user.name, products)
       puts response
     end
   end

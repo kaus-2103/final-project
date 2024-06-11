@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
 
   scope "(:locale)", locale: /en|ru/ do
       get 'set_theme', to: 'home#update'
